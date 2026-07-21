@@ -1,0 +1,5 @@
+{
+  "name": "hardhat-basic",
+  "description": "Hardhat smart contract starter configured for BOT Chain",
+  "type": "contract"
+}

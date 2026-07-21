@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bot-cli — Scaffold dApps on BOT Chain</title>
+  <meta name="description" content="The fastest way to scaffold, connect, and ship dApps on BOT Chain. Interactive CLI supporting Next.js, React, Vue, and Foundry.">
+  <meta property="og:title" content="bot-cli — BOT Chain Developer Tools">
+  <meta property="og:description" content="Interactive CLI for scaffolding fullstack dApps on BOT Chain.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://Botchain-tooling.github.io/bot-cli">
+  <link rel="icon" href="logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Variables ───────────────────────────── */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+    :root{
+      --bg:#F0EFE8;
+      --bg-card:#FAFAFA;
+      --fg:#0A0A0A;
+      --border:#0A0A0A;
+      --border-w:3px;
+      --shadow-color:#0A0A0A;
+      --muted:#555555;
+      --hero-bg:#1CD8B0;
+      --accent:#FFE01B;
+      --accent-fg:#0A0A0A;
+      --font-sans:'Space Grotesk',sans-serif;
+      --font-mono:'Space Mono',monospace;
+      --sh-sm:3px 3px 0 var(--shadow-color);
+      --sh-md:5px 5px 0 var(--shadow-color);
+      --sh-lg:8px 8px 0 var(--shadow-color);
+    }
+
+    html{scroll-behavior:smooth;font-size:16px}
+    body{
+      font-family:var(--font-sans);
+      background:var(--bg);
+      color:var(--fg);
+      min-height:100vh;
+      line-height:1.5;
+    }
+
+    .container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+
+    /* ── Navbar ───────────────────────────────────────── */
+    .navbar{
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;gap:.75rem;padding:1.25rem 0 1.5rem;
+      border-bottom:var(--border-w) solid var(--border);margin-bottom:0;
+    }
+    .brand{display:flex;align-items:center;gap:.75rem}
+    .brand img{width:44px;height:44px}
+    .brand-title{font-size:1.4rem;font-weight:800;letter-spacing:-.04em;text-transform:uppercase}
+    .nav-links{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+    .nav-links a{
+      font-family:var(--font-mono);font-size:.72rem;font-weight:700;
+      text-transform:uppercase;letter-spacing:.06em;text-decoration:none;
+      color:var(--fg);padding:.4rem .75rem;
+      border:2px solid var(--border);box-shadow:2px 2px 0 var(--shadow-color);
+      transition:transform .1s ease,box-shadow .1s ease;background:var(--bg-card);
+    }
+    .nav-links a:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--shadow-color)}
+    .nav-links a:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--shadow-color)}
+    .nav-links a.accent{background:var(--accent);color:var(--accent-fg);font-weight:800}
+
+    /* ── Hero ─────────────────────────────────────────── */
+    .hero{
+      text-align:center;margin:0 0 4rem;
+      padding:5rem 2rem 4.5rem;
+      background:var(--hero-bg);
+      border:var(--border-w) solid var(--border);
+      box-shadow:var(--sh-lg);
+      position:relative;overflow:hidden;
+      margin-top:3rem;
+    }
+    .hero::before{
+      content:'///';position:absolute;top:1rem;left:1.5rem;
+      font-family:var(--font-mono);font-size:1.2rem;font-weight:700;
+      color:var(--fg);opacity:.2;
+    }
+    .hero::after{
+      content:'///';position:absolute;bottom:1rem;right:1.5rem;
+      font-family:var(--font-mono);font-size:1.2rem;font-weight:700;
+      color:var(--fg);opacity:.2;
+    }
+    .hero-badge{
+      display:inline-block;font-family:var(--font-mono);font-size:.65rem;
+      font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+      background:#0A0A0A;color:#FFE01B;padding:.25rem .85rem;margin-bottom:1.25rem;
+    }
+    .hero h1{font-size:clamp(2.5rem,7vw,5rem);font-weight:800;line-height:1;letter-spacing:-.04em;margin:0 0 1rem}
+    .hero h1 em{font-style:normal;background:#0A0A0A;color:#FFE01B;padding:0 .15em}
+    .hero p{font-size:1.1rem;font-weight:500;opacity:.75;max-width:560px;margin:0 auto 1.75rem;line-height:1.65}
+    .hero-actions{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap}
+
+    /* ── CTA buttons ─────────────────────────────────── */
+    .cta{
+      display:inline-flex;align-items:center;gap:.5rem;
+      padding:.85rem 1.75rem;font-family:var(--font-sans);
+      font-size:.85rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;
+      cursor:pointer;background:#0A0A0A;color:#FFE01B;
+      border:var(--border-w) solid #0A0A0A;
+      box-shadow:5px 5px 0 #0A0A0A;text-decoration:none;
+      transition:transform .1s ease,box-shadow .1s ease;
+    }
+    .cta:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #0A0A0A}
+    .cta:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #0A0A0A}
+    .cta svg{width:15px;height:15px;flex-shrink:0}
+    .cta-outline{background:transparent;color:#0A0A0A;border-color:#0A0A0A;box-shadow:5px 5px 0 #0A0A0A}
+
+    /* ── Terminal / Install snippet ──────────────────── */
+    .terminal{
+      background:#0A0A0A;color:#A4EF6B;font-family:var(--font-mono);
+      font-size:.8rem;padding:1.25rem 1.5rem;border:var(--border-w) solid var(--border);
+      box-shadow:var(--sh-md);max-width:500px;margin:0 auto;text-align:left;
+      line-height:1.8;position:relative;
+    }
+    .terminal::before{
+      content:'$';position:absolute;left:.65rem;color:#10A37F;font-weight:700;
+    }
+    .terminal span{margin-left:1rem}
+    .terminal .dim{color:#666}
+
+    /* ── Section labels ──────────────────────────────── */
+    .section-label{
+      display:inline-block;font-family:var(--font-mono);font-size:.65rem;
+      font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+      background:#0A0A0A;color:#FFF;padding:.25rem .75rem;margin-bottom:.75rem;
+    }
+
+    /* ── Feature grid ────────────────────────────────── */
+    .features{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+      margin-bottom:4rem;border:var(--border-w) solid var(--border);
+      box-shadow:var(--sh-lg);
+    }
+    @media(max-width:768px){.features{grid-template-columns:1fr}}
+    .card{
+      background:var(--bg-card);border-right:var(--border-w) solid var(--border);
+      border-bottom:var(--border-w) solid var(--border);padding:2rem;
+      position:relative;transition:background .15s ease;
+    }
+    .card:last-child{border-right:none}
+    @media(max-width:768px){.card{border-right:none}.card:last-child{border-bottom:none}}
+    .card:hover{background:var(--accent)}
+    .card-accent{position:absolute;top:0;left:0;right:0;height:4px}
+    .card:nth-child(1) .card-accent{background:#1CD8B0}
+    .card:nth-child(2) .card-accent{background:#4D7CFF}
+    .card:nth-child(3) .card-accent{background:#FF5FA6}
+    .card-icon{
+      width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+      background:var(--fg);color:var(--bg);margin-bottom:1.25rem;
+    }
+    .card-icon svg{width:20px;height:20px}
+    .card h3{font-size:1.05rem;font-weight:800;margin:0 0 .5rem;letter-spacing:-.02em}
+    .card p{font-size:.875rem;font-weight:500;color:var(--muted);margin:0;line-height:1.6}
+
+    /* ── Template table ──────────────────────────────── */
+    .templates-section{margin-bottom:4rem}
+    .templates-section h2{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;letter-spacing:-.03em;margin:.25rem 0 1.5rem}
+    .template-grid{
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.75rem;
+    }
+    .template-card{
+      background:var(--bg-card);border:var(--border-w) solid var(--border);
+      box-shadow:var(--sh-sm);padding:1.25rem;transition:transform .1s ease,box-shadow .1s ease;
+    }
+    .template-card:hover{transform:translate(-2px,-2px);box-shadow:var(--sh-md)}
+    .template-card .tag{
+      display:inline-block;font-family:var(--font-mono);font-size:.6rem;
+      font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+      padding:.15rem .5rem;margin-bottom:.6rem;
+    }
+    .tag-frontend{background:#1CD8B0;color:#0A0A0A}
+    .tag-contracts{background:#4D7CFF;color:#FFF}
+    .tag-backend{background:#FF5FA6;color:#0A0A0A}
+    .template-card h4{font-size:.95rem;font-weight:700;margin:0 0 .3rem}
+    .template-card p{font-size:.78rem;color:var(--muted);margin:0;line-height:1.45}
+
+    /* ── Commands table ──────────────────────────────── */
+    .commands-section{margin-bottom:4rem}
+    .commands-section h2{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;letter-spacing:-.03em;margin:.25rem 0 1.5rem}
+    .cmd-table{width:100%;border-collapse:collapse;border:var(--border-w) solid var(--border);box-shadow:var(--sh-md)}
+    .cmd-table th{
+      text-align:left;padding:.85rem 1rem;font-family:var(--font-mono);
+      font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+      background:var(--fg);color:var(--bg);border-bottom:var(--border-w) solid var(--border);
+    }
+    .cmd-table td{
+      padding:.75rem 1rem;border-bottom:2px solid var(--border);
+      font-size:.85rem;font-family:var(--font-mono);
+    }
+    .cmd-table tr:last-child td{border-bottom:none}
+    .cmd-table code{background:var(--accent);color:var(--accent-fg);padding:.15rem .4rem;font-size:.78rem;font-weight:700}
+
+    /* ── Networks ────────────────────────────────────── */
+    .networks-section{margin-bottom:4rem}
+    .networks-section h2{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;letter-spacing:-.03em;margin:.25rem 0 1.5rem}
+    .network-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+    @media(max-width:640px){.network-grid{grid-template-columns:1fr}}
+    .network-card{
+      background:var(--bg-card);border:var(--border-w) solid var(--border);
+      box-shadow:var(--sh-md);padding:1.75rem;position:relative;overflow:hidden;
+      transition:transform .1s ease,box-shadow .1s ease;
+    }
+    .network-card:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--shadow-color)}
+    .network-card-stripe{position:absolute;top:0;left:0;right:0;height:5px}
+    .network-card:nth-child(1) .network-card-stripe{background:#1CD8B0}
+    .network-card:nth-child(2) .network-card-stripe{background:#4D7CFF}
+    .network-card h3{font-size:1.2rem;font-weight:800;margin:.5rem 0 1.25rem}
+    .network-row{
+      display:flex;align-items:baseline;gap:.75rem;padding:.6rem 0;
+      border-top:2px solid var(--border);font-size:.875rem;
+    }
+    .network-row:last-of-type{border-bottom:2px solid var(--border);margin-bottom:1rem}
+    .network-row .label{
+      font-family:var(--font-mono);font-size:.62rem;font-weight:700;
+      text-transform:uppercase;letter-spacing:.08em;min-width:70px;flex-shrink:0;opacity:.4;
+    }
+    .network-row .value{font-family:var(--font-mono);font-size:.75rem;font-weight:600;word-break:break-all}
+
+    /* ── Footer ──────────────────────────────────────── */
+    .footer{
+      display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+      gap:1rem;padding:2rem 0;border-top:var(--border-w) solid var(--border);
+      font-family:var(--font-mono);font-size:.72rem;font-weight:600;color:var(--muted);
+    }
+    .footer a{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
+    .footer a:hover{background:var(--fg);color:var(--bg)}
+    .footer-links{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
+    .footer-links a{
+      display:inline-flex;align-items:center;gap:.35rem;
+      text-decoration:none;color:var(--fg);font-weight:700;
+    }
+    .footer-links a svg{width:16px;height:16px}
+    .footer-logo{display:flex;align-items:center;gap:.5rem}
+    .footer-logo img{width:24px;height:24px}
+    .footer-tag{
+      background:#1CD8B0;border:2px solid var(--border);padding:.15rem .6rem;
+      font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#0A0A0A;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar container">
+  <div class="brand">
+    <img src="logo.svg" alt="BOT Chain CLI">
+    <span class="brand-title">bot-cli</span>
+  </div>
+  <div class="nav-links">
+    <a href="https://github.com/Botchain-tooling/bot-cli" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="margin-right:4px"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="https://www.npmjs.com/package/bot-cli" target="_blank" rel="noopener" class="accent">
+      npm
+    </a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero container">
+  <span class="hero-badge">v0.1.0</span>
+  <h1>Scaffold dApps on <em>BOT Chain</em></h1>
+  <p>The fast, EVM&#8208;compatible chain made for builders. Scaffold, connect, and ship in minutes with a single command.</p>
+  <div class="hero-actions">
+    <a href="https://www.npmjs.com/package/bot-cli" class="cta" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      npm install -g bot-cli
+    </a>
+    <a href="https://github.com/Botchain-tooling/bot-cli" class="cta cta-outline" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      View on GitHub
+    </a>
+  </div>
+</header>
+
+<!-- Install -->
+<div class="container" style="text-align:center;margin-bottom:4rem;">
+  <span class="section-label">Install</span>
+  <div class="terminal">
+    <span>npm install -g bot-cli</span><br>
+    <span class="dim"># or: pnpm add -g bot-cli</span><br>
+    <span class="dim"># requires Node.js &ge; 18</span>
+  </div>
+</div>
+
+<!-- Features -->
+<div class="container" style="margin-bottom:1.5rem;">
+  <span class="section-label">Why bot-cli</span>
+</div>
+<section class="features container">
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    </div>
+    <h3>Interactive Scaffolding</h3>
+    <p>Answer a few prompts — choose your stack, contracts, and tooling. The CLI handles the rest.</p>
+  </div>
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <h3>Wallet Ready</h3>
+    <p>wagmi + RainbowKit pre-configured for BOT Testnet &amp; Mainnet. Connect wallets in one click.</p>
+  </div>
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+    </div>
+    <h3>Contract Playground</h3>
+    <p>Read &amp; write contract functions directly from the UI. No console required.</p>
+  </div>
+</section>
+<div class="features container" style="border-top:none;margin-top:-4rem;">
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    </div>
+    <h3>Multiple Frontends</h3>
+    <p>Next.js, Vite + React, Vite + Vue, or Vanilla TypeScript. One CLI, your choice.</p>
+  </div>
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <h3>Dark / Light Mode</h3>
+    <p>Every template ships with a theme toggle. Neobrutalist design that pops in both modes.</p>
+  </div>
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+    </div>
+    <h3>Package Manager Agnostic</h3>
+    <p>npm, pnpm, Yarn, or Bun — the CLI auto-detects and generates lockfiles accordingly.</p>
+  </div>
+</div>
+
+<!-- Templates -->
+<div class="templates-section container">
+  <span class="section-label">Templates</span>
+  <h2>What you can scaffold</h2>
+  <div class="template-grid">
+    <div class="template-card">
+      <span class="tag tag-frontend">Frontend</span>
+      <h4>Next.js + React</h4>
+      <p>App Router, wagmi, RainbowKit, TypeScript, Tailwind</p>
+    </div>
+    <div class="template-card">
+      <span class="tag tag-frontend">Frontend</span>
+      <h4>Vite + React</h4>
+      <p>React 18, wagmi, RainbowKit, TypeScript, Tailwind</p>
+    </div>
+    <div class="template-card">
+      <span class="tag tag-frontend">Frontend</span>
+      <h4>Vite + Vue</h4>
+      <p>Vue 3, viem, wagmi, TypeScript, Tailwind</p>
+    </div>
+    <div class="template-card">
+      <span class="tag tag-frontend">Frontend</span>
+      <h4>Vite + Vanilla</h4>
+      <p>TypeScript, viem, wagmi, Plain CSS / Tailwind</p>
+    </div>
+    <div class="template-card">
+      <span class="tag tag-contracts">Contracts</span>
+      <h4>Foundry + Counter</h4>
+      <p>Simple counter contract with read/increment</p>
+    </div>
+    <div class="template-card">
+      <span class="tag tag-contracts">Contracts</span>
+      <h4>Foundry + Guess the Number</h4>
+      <p>Game contract with commit-reveal logic</p>
+    </div>
+    <div class="template-card">
+      <span class="tag tag-backend">Backend</span>
+      <h4>Hardhat Basic</h4>
+      <p>Hardhat + TypeScript, deploy script included</p>
+    </div>
+  </div>
+</div>
+
+<!-- Commands -->
+<div class="commands-section container">
+  <span class="section-label">CLI</span>
+  <h2>Commands</h2>
+  <table class="cmd-table">
+    <thead>
+      <tr><th>Command</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>bot-cli init</code></td><td>Scaffold a new BOT Chain project</td></tr>
+      <tr><td><code>bot-cli add</code></td><td>Add components or contracts (coming soon)</td></tr>
+      <tr><td><code>bot-cli deploy</code></td><td>Print Foundry deployment guidance</td></tr>
+      <tr><td><code>bot-cli testnet</code></td><td>Show BOT Testnet faucet, RPC &amp; explorer</td></tr>
+      <tr><td><code>bot-cli info</code></td><td>Display BOT Chain network details</td></tr>
+      <tr><td><code>bot-cli --version</code></td><td>Print the CLI version</td></tr>
+      <tr><td><code>bot-cli --help</code></td><td>Show all available commands</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Networks -->
+<div class="networks-section container">
+  <span class="section-label">Networks</span>
+  <h2>BOT Chain Networks</h2>
+  <div class="network-grid">
+    <div class="network-card">
+      <div class="network-card-stripe"></div>
+      <h3>BOT Mainnet</h3>
+      <div class="network-row"><span class="label">Chain ID</span><span class="value">677</span></div>
+      <div class="network-row"><span class="label">RPC URL</span><span class="value">https://rpc.botchain.ai</span></div>
+      <a href="https://botscan.ai" class="cta cta-outline" style="font-size:.75rem;padding:.6rem 1.2rem;box-shadow:3px 3px 0 #0A0A0A;margin-top:.5rem" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Explorer
+      </a>
+    </div>
+    <div class="network-card">
+      <div class="network-card-stripe"></div>
+      <h3>BOT Testnet (Bohr)</h3>
+      <div class="network-row"><span class="label">Chain ID</span><span class="value">968</span></div>
+      <div class="network-row"><span class="label">RPC URL</span><span class="value">https://rpc.bohr.life</span></div>
+      <a href="https://testnet.botscan.ai" class="cta cta-outline" style="font-size:.75rem;padding:.6rem 1.2rem;box-shadow:3px 3px 0 #0A0A0A;margin-top:.5rem" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Explorer
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer container">
+  <div class="footer-logo">
+    <img src="logo.svg" alt="">
+    <strong>bot-cli</strong>
+    <span class="footer-tag">v0.1.0</span>
+  </div>
+  <div class="footer-links">
+    <span>Created by</span>
+    <a href="https://github.com/Eldevode" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      Eldevode
+    </a>
+    <a href="https://x.com/Eldevode_" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      @Eldevode_
+    </a>
+    <span>|</span>
+    <a href="https://github.com/Botchain-tooling" target="_blank" rel="noopener">Botchain-tooling</a>
+  </div>
+</footer>
+
+</body>
+</html>

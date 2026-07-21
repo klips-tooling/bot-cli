@@ -1,0 +1,43 @@
+{
+  "name": "bot-chain-tools",
+  "private": true,
+  "version": "0.1.0",
+  "description": "BOT Chain developer tools monorepo — scaffold, deploy, and ship dApps on BOT Chain",
+  "license": "Apache-2.0",
+  "author": "Eldevode <hello@botchain.ai>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Botchain-tooling/bot-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Botchain-tooling/bot-cli/issues"
+  },
+  "homepage": "https://Botchain-tooling.github.io/bot-cli",
+  "keywords": [
+    "blockchain",
+    "web3",
+    "bot-chain",
+    "dapp",
+    "scaffold",
+    "cli",
+    "solidity",
+    "foundry",
+    "typescript",
+    "nextjs",
+    "react",
+    "wagmi",
+    "viem"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "publish": "turbo run build && cd packages/cli && npm publish",
+    "botdev": "node packages/cli/dist/index.js"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

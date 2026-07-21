@@ -1,0 +1,7 @@
+{
+  "name": "foundry-basic",
+  "label": "Foundry",
+  "type": "contracts",
+  "framework": "foundry",
+  "description": "Solidity smart contracts with Foundry"
+}

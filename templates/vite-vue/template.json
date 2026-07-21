@@ -1,0 +1,8 @@
+{
+  "name": "vite-vue",
+  "label": "Vite + Vue",
+  "type": "frontend",
+  "framework": "vite-vue",
+  "description": "Vue 3 + TypeScript frontend with viem/wagmi",
+  "supportsTailwind": true
+}

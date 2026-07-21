@@ -1,0 +1,8 @@
+{
+  "name": "vite-react",
+  "label": "Vite + React",
+  "type": "frontend",
+  "framework": "vite-react",
+  "description": "React 18 + RainbowKit + Tailwind CSS v4 frontend for BOT Chain",
+  "supportsTailwind": true
+}

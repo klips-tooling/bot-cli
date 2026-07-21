@@ -1,0 +1,8 @@
+{
+  "name": "vite-vanilla",
+  "label": "Vite + Vanilla",
+  "type": "frontend",
+  "framework": "vite-vanilla",
+  "description": "Minimal Vite + TypeScript frontend with viem/wagmi",
+  "supportsTailwind": true
+}

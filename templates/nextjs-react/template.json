@@ -1,0 +1,8 @@
+{
+  "name": "nextjs-react",
+  "label": "Next.js + React (App Router)",
+  "type": "frontend",
+  "framework": "nextjs",
+  "description": "Next.js dApp template with Wagmi, RainbowKit & Tailwind CSS",
+  "supportsTailwind": true
+}

@@ -1,0 +1,16 @@
+{
+  "name": "{{projectName}}-contracts",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:testnet": "hardhat run scripts/deploy.ts --network bot-testnet",
+    "deploy:mainnet": "hardhat run scripts/deploy.ts --network bot-mainnet"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,16 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+evm_version = "paris"
+chain_id = {{chainId}}
+
+# RPC endpoints for BOT Chain networks
+[rpc_endpoints]
+bot-mainnet = "https://rpc.botchain.ai"
+bot-testnet = "https://rpc.bohr.life"
+
+# Explorer verification (fill in your API keys in .env)
+[etherscan]
+bot-mainnet = { key = "${BOT_MAINNET_EXPLORER_API_KEY}", url = "https://scan.botchain.ai/api" }
+bot-testnet = { key = "${BOT_TESTNET_EXPLORER_API_KEY}", url = "https://scan.bohr.life/api" }
