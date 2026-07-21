@@ -56,3 +56,5 @@ _site/
 # Obsidian / note-taking apps
 .obsidian/
 *.tgz
+plans/
+PLAN.md
