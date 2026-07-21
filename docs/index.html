@@ -14,43 +14,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* ── Reset & Variables ───────────────────────────── */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
     :root{
-      --bg:#F0EFE8;
-      --bg-card:#FAFAFA;
-      --fg:#0A0A0A;
-      --border:#0A0A0A;
-      --border-w:3px;
-      --shadow-color:#0A0A0A;
-      --muted:#555555;
-      --hero-bg:#1CD8B0;
-      --accent:#FFE01B;
-      --accent-fg:#0A0A0A;
-      --font-sans:'Space Grotesk',sans-serif;
-      --font-mono:'Space Mono',monospace;
-      --sh-sm:3px 3px 0 var(--shadow-color);
-      --sh-md:5px 5px 0 var(--shadow-color);
-      --sh-lg:8px 8px 0 var(--shadow-color);
+      --bg:#F0EFE8;--bg-card:#FAFAFA;--fg:#0A0A0A;--border:#0A0A0A;--border-w:3px;
+      --shadow-color:#0A0A0A;--muted:#555555;--hero-bg:#1CD8B0;--accent:#FFE01B;
+      --accent-fg:#0A0A0A;--font-sans:'Space Grotesk',sans-serif;--font-mono:'Space Mono',monospace;
+      --sh-sm:3px 3px 0 var(--shadow-color);--sh-md:5px 5px 0 var(--shadow-color);--sh-lg:8px 8px 0 var(--shadow-color);
     }
 
     html{scroll-behavior:smooth;font-size:16px}
-    body{
-      font-family:var(--font-sans);
-      background:var(--bg);
-      color:var(--fg);
-      min-height:100vh;
-      line-height:1.5;
-    }
+    body{font-family:var(--font-sans);background:var(--bg);color:var(--fg);min-height:100vh;line-height:1.5}
 
     .container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
 
     /* ── Navbar ───────────────────────────────────────── */
+    .navbar-wrap{border-bottom:var(--border-w) solid var(--border)}
     .navbar{
       display:flex;align-items:center;justify-content:space-between;
       flex-wrap:wrap;gap:.75rem;padding:1.25rem 0 1.5rem;
-      border-bottom:var(--border-w) solid var(--border);margin-bottom:0;
     }
     .brand{display:flex;align-items:center;gap:.75rem}
     .brand img{width:44px;height:44px}
@@ -69,13 +51,12 @@
 
     /* ── Hero ─────────────────────────────────────────── */
     .hero{
-      text-align:center;margin:0 0 4rem;
+      text-align:center;margin:3rem auto 4rem;
       padding:5rem 2rem 4.5rem;
       background:var(--hero-bg);
       border:var(--border-w) solid var(--border);
       box-shadow:var(--sh-lg);
       position:relative;overflow:hidden;
-      margin-top:3rem;
     }
     .hero::before{
       content:'///';position:absolute;top:1rem;left:1.5rem;
@@ -112,16 +93,14 @@
     .cta svg{width:15px;height:15px;flex-shrink:0}
     .cta-outline{background:transparent;color:#0A0A0A;border-color:#0A0A0A;box-shadow:5px 5px 0 #0A0A0A}
 
-    /* ── Terminal / Install snippet ──────────────────── */
+    /* ── Terminal ────────────────────────────────────── */
     .terminal{
       background:#0A0A0A;color:#A4EF6B;font-family:var(--font-mono);
       font-size:.8rem;padding:1.25rem 1.5rem;border:var(--border-w) solid var(--border);
       box-shadow:var(--sh-md);max-width:500px;margin:0 auto;text-align:left;
       line-height:1.8;position:relative;
     }
-    .terminal::before{
-      content:'$';position:absolute;left:.65rem;color:#10A37F;font-weight:700;
-    }
+    .terminal::before{content:'$';position:absolute;left:.65rem;color:#10A37F;font-weight:700}
     .terminal span{margin-left:1rem}
     .terminal .dim{color:#666}
 
@@ -131,6 +110,8 @@
       font-weight:700;text-transform:uppercase;letter-spacing:.12em;
       background:#0A0A0A;color:#FFF;padding:.25rem .75rem;margin-bottom:.75rem;
     }
+    .section-header{margin-bottom:1.5rem}
+    .section-header h2{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;letter-spacing:-.03em;margin:.25rem 0 0}
 
     /* ── Feature grid ────────────────────────────────── */
     .features{
@@ -144,13 +125,18 @@
       border-bottom:var(--border-w) solid var(--border);padding:2rem;
       position:relative;transition:background .15s ease;
     }
-    .card:last-child{border-right:none}
-    @media(max-width:768px){.card{border-right:none}.card:last-child{border-bottom:none}}
+    .card:nth-child(3n){border-right:none}
+    @media(max-width:768px){.card{border-right:none}.card:nth-child(3n){border-right:none}}
+    .card:nth-last-child(-n+3){border-bottom:none}
+    @media(max-width:768px){.card:nth-last-child(-n+3){border-bottom:var(--border-w) solid var(--border)}.card:last-child{border-bottom:none}}
     .card:hover{background:var(--accent)}
     .card-accent{position:absolute;top:0;left:0;right:0;height:4px}
     .card:nth-child(1) .card-accent{background:#1CD8B0}
     .card:nth-child(2) .card-accent{background:#4D7CFF}
     .card:nth-child(3) .card-accent{background:#FF5FA6}
+    .card:nth-child(4) .card-accent{background:#1CD8B0}
+    .card:nth-child(5) .card-accent{background:#4D7CFF}
+    .card:nth-child(6) .card-accent{background:#FF5FA6}
     .card-icon{
       width:48px;height:48px;display:flex;align-items:center;justify-content:center;
       background:var(--fg);color:var(--bg);margin-bottom:1.25rem;
@@ -159,9 +145,8 @@
     .card h3{font-size:1.05rem;font-weight:800;margin:0 0 .5rem;letter-spacing:-.02em}
     .card p{font-size:.875rem;font-weight:500;color:var(--muted);margin:0;line-height:1.6}
 
-    /* ── Template table ──────────────────────────────── */
+    /* ── Templates ───────────────────────────────────── */
     .templates-section{margin-bottom:4rem}
-    .templates-section h2{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;letter-spacing:-.03em;margin:.25rem 0 1.5rem}
     .template-grid{
       display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.75rem;
     }
@@ -181,9 +166,8 @@
     .template-card h4{font-size:.95rem;font-weight:700;margin:0 0 .3rem}
     .template-card p{font-size:.78rem;color:var(--muted);margin:0;line-height:1.45}
 
-    /* ── Commands table ──────────────────────────────── */
+    /* ── Commands ────────────────────────────────────── */
     .commands-section{margin-bottom:4rem}
-    .commands-section h2{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;letter-spacing:-.03em;margin:.25rem 0 1.5rem}
     .cmd-table{width:100%;border-collapse:collapse;border:var(--border-w) solid var(--border);box-shadow:var(--sh-md)}
     .cmd-table th{
       text-align:left;padding:.85rem 1rem;font-family:var(--font-mono);
@@ -199,7 +183,6 @@
 
     /* ── Networks ────────────────────────────────────── */
     .networks-section{margin-bottom:4rem}
-    .networks-section h2{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;letter-spacing:-.03em;margin:.25rem 0 1.5rem}
     .network-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
     @media(max-width:640px){.network-grid{grid-template-columns:1fr}}
     .network-card{
@@ -225,13 +208,14 @@
 
     /* ── Footer ──────────────────────────────────────── */
     .footer{
-      display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
-      gap:1rem;padding:2rem 0;border-top:var(--border-w) solid var(--border);
+      display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+      gap:1.25rem;padding:2rem 0;border-top:var(--border-w) solid var(--border);
       font-family:var(--font-mono);font-size:.72rem;font-weight:600;color:var(--muted);
+      text-align:center;
     }
     .footer a{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
     .footer a:hover{background:var(--fg);color:var(--bg)}
-    .footer-links{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
+    .footer-links{display:flex;align-items:center;justify-content:center;gap:1.25rem;flex-wrap:wrap}
     .footer-links a{
       display:inline-flex;align-items:center;gap:.35rem;
       text-decoration:none;color:var(--fg);font-weight:700;
@@ -248,21 +232,23 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar container">
-  <div class="brand">
-    <img src="logo.svg" alt="BOT Chain CLI">
-    <span class="brand-title">bot-cli</span>
-  </div>
-  <div class="nav-links">
-    <a href="https://github.com/Botchain-tooling/bot-cli" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="margin-right:4px"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-      GitHub
-    </a>
-    <a href="https://www.npmjs.com/package/bot-cli" target="_blank" rel="noopener" class="accent">
-      npm
-    </a>
-  </div>
-</nav>
+<div class="navbar-wrap">
+  <nav class="navbar container">
+    <div class="brand">
+      <img src="logo.svg" alt="BOT Chain CLI">
+      <span class="brand-title">bot-cli</span>
+    </div>
+    <div class="nav-links">
+      <a href="https://github.com/Botchain-tooling/bot-cli" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="margin-right:4px"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.npmjs.com/package/bot-cli" target="_blank" rel="noopener" class="accent">
+        npm
+      </a>
+    </div>
+  </nav>
+</div>
 
 <!-- Hero -->
 <header class="hero container">
@@ -292,8 +278,9 @@
 </div>
 
 <!-- Features -->
-<div class="container" style="margin-bottom:1.5rem;">
+<div class="container section-header">
   <span class="section-label">Why bot-cli</span>
+  <h2>Built for BOT Chain builders</h2>
 </div>
 <section class="features container">
   <div class="card">
@@ -320,8 +307,6 @@
     <h3>Contract Playground</h3>
     <p>Read &amp; write contract functions directly from the UI. No console required.</p>
   </div>
-</section>
-<div class="features container" style="border-top:none;margin-top:-4rem;">
   <div class="card">
     <div class="card-accent"></div>
     <div class="card-icon">
@@ -346,12 +331,14 @@
     <h3>Package Manager Agnostic</h3>
     <p>npm, pnpm, Yarn, or Bun — the CLI auto-detects and generates lockfiles accordingly.</p>
   </div>
-</div>
+</section>
 
 <!-- Templates -->
 <div class="templates-section container">
-  <span class="section-label">Templates</span>
-  <h2>What you can scaffold</h2>
+  <div class="section-header">
+    <span class="section-label">Templates</span>
+    <h2>What you can scaffold</h2>
+  </div>
   <div class="template-grid">
     <div class="template-card">
       <span class="tag tag-frontend">Frontend</span>
@@ -393,8 +380,10 @@
 
 <!-- Commands -->
 <div class="commands-section container">
-  <span class="section-label">CLI</span>
-  <h2>Commands</h2>
+  <div class="section-header">
+    <span class="section-label">CLI</span>
+    <h2>Commands</h2>
+  </div>
   <table class="cmd-table">
     <thead>
       <tr><th>Command</th><th>Description</th></tr>
@@ -413,8 +402,10 @@
 
 <!-- Networks -->
 <div class="networks-section container">
-  <span class="section-label">Networks</span>
-  <h2>BOT Chain Networks</h2>
+  <div class="section-header">
+    <span class="section-label">Networks</span>
+    <h2>BOT Chain Networks</h2>
+  </div>
   <div class="network-grid">
     <div class="network-card">
       <div class="network-card-stripe"></div>
@@ -457,7 +448,7 @@
       @Eldevode_
     </a>
     <span>|</span>
-    <a href="https://github.com/Botchain-tooling" target="_blank" rel="noopener">Botchain-tooling</a>
+    <a href="https://github.com/Botchain-tooling" target="_blank" rel="noopener">klips tooling</a>
   </div>
 </footer>
 

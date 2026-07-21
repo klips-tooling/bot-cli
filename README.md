@@ -206,7 +206,7 @@ This project is licensed under the **Apache License, Version 2.0**. See [`LICENS
 
 ## 🔗 Links
 
-- **GitHub Org:** [Botchain-tooling](https://github.com/Botchain-tooling)
+- **GitHub Org:** [klips tooling](https://github.com/Botchain-tooling)
 - **Created by:** [Eldevode](https://github.com/Eldevode)
 - **Twitter/X:** [@Eldevode_](https://x.com/Eldevode_)
 - **npm:** [bot-cli on npm](https://www.npmjs.com/package/bot-cli)
