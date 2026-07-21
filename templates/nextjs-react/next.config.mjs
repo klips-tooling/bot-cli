@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  serverExternalPackages: ['@coinbase/cdp-sdk'],
+  turbopack: {},
+  // Legacy webpack config — only used with `next dev --webpack` or `next build --webpack`
   webpack: (config, { webpack }) => {
-    // Suppress optional native modules from MetaMask SDK / Coinbase SDK
     config.plugins.push(
       new webpack.IgnorePlugin({
         resourceRegExp: /^@react-native-async-storage\/async-storage$/,
