@@ -1,6 +1,6 @@
 {
   "name": "@klips-tooling/bot-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "BOT Chain developer tools CLI — interactive scaffolding for building dApps on BOT Chain",
   "license": "Apache-2.0",
   "author": {
