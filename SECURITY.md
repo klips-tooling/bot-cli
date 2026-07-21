@@ -47,7 +47,7 @@ The security policy covers:
 
 ## Best Practices for Users
 
-- Always verify the package source: `npm install -g bot-cli`
-- Keep the CLI updated: `npm update -g bot-cli`
+- Always verify the package source: `npm install -g @klips-tooling/bot-cli`
+- Keep the CLI updated: `npm update -g @klips-tooling/bot-cli`
 - Do not commit `.env` files — they are gitignored by default in scaffolded projects
 - Use environment variables for sensitive keys (WalletConnect project ID, RPC URLs)

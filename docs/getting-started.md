@@ -3,7 +3,7 @@
 ## Install the CLI
 
 ```bash
-npm install -g bot-cli
+npm install -g @klips-tooling/bot-cli
 ```
 
 ## Create a project

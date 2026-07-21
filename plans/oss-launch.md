@@ -47,7 +47,7 @@ Preparing the `bot-cli` monorepo for public open-source release under the **klip
 - Badges: npm version, license, node version, PRs welcome
 - Clear elevator pitch
 - Feature list
-- Quick install (`npm install -g bot-cli`)
+- Quick install (`npm install -g @klips-tooling/bot-cli`)
 - Usage examples with terminal screenshots (ASCII-style)
 - Available templates table
 - Development setup
