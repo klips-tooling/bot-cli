@@ -7,12 +7,12 @@
   "author": "Eldevode <hello@botchain.ai>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Botchain-tooling/bot-cli.git"
+    "url": "https://github.com/klips-tooling/bot-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/Botchain-tooling/bot-cli/issues"
+    "url": "https://github.com/klips-tooling/bot-cli/issues"
   },
-  "homepage": "https://Botchain-tooling.github.io/bot-cli",
+  "homepage": "https://klips-tooling.github.io/bot-cli",
   "keywords": [
     "blockchain",
     "web3",

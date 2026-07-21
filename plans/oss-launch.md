@@ -1,7 +1,7 @@
 # Open-Source Launch Plan
 
 ## Context
-Preparing the `bot-cli` monorepo for public open-source release under the **Botchain-tooling** GitHub organization. This includes licensing, documentation, community files, a GitHub Pages landing page, and npm publication readiness.
+Preparing the `bot-cli` monorepo for public open-source release under the **klips-tooling** GitHub organization. This includes licensing, documentation, community files, a GitHub Pages landing page, and npm publication readiness.
 
 ## Goals
 - Apache 2.0 license across the project
@@ -63,7 +63,7 @@ Preparing the `bot-cli` monorepo for public open-source release under the **Botc
 - Footer with:
   - "Created by [Eldevode](https://github.com/Eldevode)"
   - Twitter/X link: [@Eldevode_](https://x.com/Eldevode_)
-  - GitHub org: [Botchain-tooling](https://github.com/Botchain-tooling)
+  - GitHub org: [klips-tooling](https://github.com/klips-tooling)
 - Configure GitHub Pages in repo settings to serve from `docs/` on main branch
 
 ### 4. Community files
@@ -105,7 +105,7 @@ Preparing the `bot-cli` monorepo for public open-source release under the **Botc
 ### Phase 4 — GitHub Pages
 - [ ] Create `docs/index.html` (neobrutalism landing page)
 - [ ] Create `docs/style.css` (embeddable or inline)
-- [ ] Include social links (GitHub: Eldevode, X: Eldevode_, org: Botchain-tooling)
+- [ ] Include social links (GitHub: Eldevode, X: Eldevode_, org: klips-tooling)
 
 ### Phase 5 — Final Cleanup
 - [ ] Review and update `.gitignore`

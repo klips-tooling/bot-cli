@@ -1,7 +1,7 @@
 # bot-cli
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Botchain-tooling/bot-cli/main/docs/logo.svg" alt="BOT Chain CLI" width="120" />
+  <img src="https://raw.githubusercontent.com/klips-tooling/bot-cli/main/docs/logo.svg" alt="BOT Chain CLI" width="120" />
 </p>
 
 <p align="center">
@@ -12,7 +12,7 @@
   <a href="https://www.npmjs.com/package/bot-cli"><img src="https://img.shields.io/npm/v/bot-cli?color=%2310A37F&style=flat-square" alt="npm version" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square" alt="License: Apache 2.0" /></a>
   <a href="https://nodejs.org/"><img src="https://img.shields.io/node/v-lts/bot-cli?style=flat-square" alt="Node.js version" /></a>
-  <a href="https://github.com/Botchain-tooling/bot-cli"><img src="https://img.shields.io/github/stars/Botchain-tooling/bot-cli?style=flat-square" alt="GitHub Stars" /></a>
+  <a href="https://github.com/klips-tooling/bot-cli"><img src="https://img.shields.io/github/stars/klips-tooling/bot-cli?style=flat-square" alt="GitHub Stars" /></a>
   <a href="./CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome" /></a>
 </p>
 
@@ -141,7 +141,7 @@ This is a **pnpm + Turborepo** monorepo.
 
 ```bash
 # Clone
-git clone https://github.com/Botchain-tooling/bot-cli.git
+git clone https://github.com/klips-tooling/bot-cli.git
 cd bot-cli
 
 # Install
@@ -206,7 +206,7 @@ This project is licensed under the **Apache License, Version 2.0**. See [`LICENS
 
 ## 🔗 Links
 
-- **GitHub Org:** [klips tooling](https://github.com/Botchain-tooling)
+- **GitHub Org:** [klips tooling](https://github.com/klips-tooling)
 - **Created by:** [Eldevode](https://github.com/Eldevode)
 - **Twitter/X:** [@Eldevode_](https://x.com/Eldevode_)
 - **npm:** [bot-cli on npm](https://www.npmjs.com/package/bot-cli)

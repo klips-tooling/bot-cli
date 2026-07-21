@@ -78,7 +78,7 @@ bot-cli/
 ## How to contribute
 
 ### 1. Report a bug
-Open an issue using the [Bug Report template](https://github.com/Botchain-tooling/bot-cli/issues/new?template=bug_report.md). Include:
+Open an issue using the [Bug Report template](https://github.com/klips-tooling/bot-cli/issues/new?template=bug_report.md). Include:
 
 - CLI version (`bot-cli --version`)
 - Node.js version (`node --version`)
@@ -86,7 +86,7 @@ Open an issue using the [Bug Report template](https://github.com/Botchain-toolin
 - Expected vs actual behavior
 
 ### 2. Request a feature
-Open an issue using the [Feature Request template](https://github.com/Botchain-tooling/bot-cli/issues/new?template=feature_request.md).
+Open an issue using the [Feature Request template](https://github.com/klips-tooling/bot-cli/issues/new?template=feature_request.md).
 
 ### 3. Submit a pull request
 
@@ -155,4 +155,4 @@ By contributing, you agree that your contributions will be licensed under the [A
 
 ## Questions?
 
-Open a [Discussion](https://github.com/Botchain-tooling/bot-cli/discussions) or reach out on [X/Twitter](https://x.com/Eldevode_).
+Open a [Discussion](https://github.com/klips-tooling/bot-cli/discussions) or reach out on [X/Twitter](https://x.com/Eldevode_).
