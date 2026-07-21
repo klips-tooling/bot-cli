@@ -265,6 +265,30 @@
       transition:border-color .25s ease;
     }
     [data-theme="dark"] .footer-tag{background:#003626;color:#A4EF6B;border-color:#252525}
+
+    /* ── Package manager tabs ───────────────────────── */
+    .pm-tabs{display:flex;justify-content:center;gap:0;margin-bottom:0;max-width:500px;margin-left:auto;margin-right:auto}
+    .pm-tab{
+      font-family:var(--font-mono);font-size:.68rem;font-weight:700;
+      text-transform:uppercase;letter-spacing:.06em;padding:.55rem 1rem;
+      cursor:pointer;border:var(--border-w) solid var(--border);
+      background:var(--bg-card);color:var(--muted);
+      margin-right:-3px;transition:background .15s ease,color .15s ease;
+      position:relative;
+    }
+    .pm-tab:first-child{border-radius:0}
+    .pm-tab:last-child{margin-right:0}
+    .pm-tab.active{background:var(--fg);color:var(--bg);z-index:1}
+    .pm-tab:hover:not(.active){background:var(--accent);color:var(--accent-fg)}
+    .pm-terminal{
+      background:#0A0A0A;color:#A4EF6B;font-family:var(--font-mono);
+      font-size:.8rem;padding:1.25rem 1.5rem;border:var(--border-w) solid var(--border);
+      border-top:none;box-shadow:var(--sh-md);max-width:500px;margin:0 auto 0;
+      text-align:left;line-height:1.8;position:relative;
+    }
+    .pm-terminal::before{content:'$';position:absolute;left:.65rem;color:#10A37F;font-weight:700}
+    .pm-terminal span{margin-left:1rem}
+    .pm-terminal .dim{color:#666}
   </style>
 </head>
 <body>
@@ -312,11 +336,16 @@
 <!-- Install -->
 <div class="container" style="text-align:center;margin-bottom:4rem;">
   <span class="section-label">Install</span>
-  <div class="terminal">
-    <span>npm install -g @klips-tooling/bot-cli</span><br>
-    <span class="dim"># or: pnpm add -g @klips-tooling/bot-cli</span><br>
-    <span class="dim"># requires Node.js &ge; 18</span>
+  <div class="pm-tabs">
+    <button class="pm-tab active" data-pm="npm">npm</button>
+    <button class="pm-tab" data-pm="pnpm">pnpm</button>
+    <button class="pm-tab" data-pm="yarn">yarn</button>
+    <button class="pm-tab" data-pm="bun">bun</button>
   </div>
+  <div class="pm-terminal" id="pm-cmd">
+    <span>npm install -g @klips-tooling/bot-cli</span>
+  </div>
+  <p style="font-family:var(--font-mono);font-size:.68rem;color:var(--muted);margin-top:.6rem">requires Node.js &ge; 18</p>
 </div>
 
 <!-- Features -->
@@ -495,24 +524,39 @@
 </footer>
 
 <script>
+  // Dark mode toggle
   const toggle = document.getElementById('theme-toggle');
   const sun = document.getElementById('sun-icon');
   const moon = document.getElementById('moon-icon');
   const html = document.documentElement;
   let dark = false;
-
-  // Restore from localStorage or system preference
   const saved = localStorage.getItem('theme');
   if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     dark = true; html.setAttribute('data-theme', 'dark'); sun.style.display='none'; moon.style.display='block';
   }
-
   toggle.addEventListener('click', () => {
     dark = !dark;
     html.setAttribute('data-theme', dark ? 'dark' : 'light');
     sun.style.display = dark ? 'none' : 'block';
     moon.style.display = dark ? 'block' : 'none';
     localStorage.setItem('theme', dark ? 'dark' : 'light');
+  });
+
+  // Package manager tabs
+  const cmds = {
+    npm: 'npm install -g @klips-tooling/bot-cli',
+    pnpm: 'pnpm add -g @klips-tooling/bot-cli',
+    yarn: 'yarn global add @klips-tooling/bot-cli',
+    bun: 'bun add -g @klips-tooling/bot-cli',
+  };
+  const pmTabs = document.querySelectorAll('.pm-tab');
+  const pmCmd = document.getElementById('pm-cmd');
+  pmTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      pmTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      pmCmd.innerHTML = '<span>' + cmds[tab.dataset.pm] + '</span>';
+    });
   });
 </script>
 
