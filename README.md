@@ -131,7 +131,7 @@ my-bot-dapp/
 - **Chain ID:** `968`
 - **RPC URL:** `https://rpc.bohr.life`
 - **Faucet:** [https://faucet.botchain.ai](https://faucet.botchain.ai)
-- **Explorer:** [https://testnet.botscan.ai](https://testnet.botscan.ai)
+- **Explorer:** [https://scan.bohr.life](https://scan.bohr.life)
 
 ---
 

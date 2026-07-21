@@ -87,29 +87,33 @@ Preparing the `bot-cli` monorepo for public open-source release under the **klip
 ## Steps
 
 ### Phase 1 — License & Metadata
-- [ ] Create `LICENSE` (Apache 2.0)
-- [ ] Update root `package.json` license and metadata
-- [ ] Update `packages/cli/package.json` license, author, repository
+- [x] Create `LICENSE` (Apache 2.0)
+- [x] Update root `package.json` license and metadata
+- [x] Update `packages/cli/package.json` license, author, repository
 
 ### Phase 2 — README
-- [ ] Rewrite `README.md` with full project documentation
+- [x] Rewrite `README.md` with full project documentation
 
 ### Phase 3 — Community Files
-- [ ] Create `CONTRIBUTING.md`
-- [ ] Create `CODE_OF_CONDUCT.md`
-- [ ] Create `SECURITY.md`
-- [ ] Create `.github/ISSUE_TEMPLATE/bug_report.md`
-- [ ] Create `.github/ISSUE_TEMPLATE/feature_request.md`
-- [ ] Create `.github/PULL_REQUEST_TEMPLATE.md`
+- [x] Create `CONTRIBUTING.md`
+- [x] Create `CODE_OF_CONDUCT.md`
+- [x] Create `SECURITY.md`
+- [x] Create `.github/ISSUE_TEMPLATE/bug_report.md`
+- [x] Create `.github/ISSUE_TEMPLATE/feature_request.md`
+- [x] Create `.github/PULL_REQUEST_TEMPLATE.md`
 
 ### Phase 4 — GitHub Pages
-- [ ] Create `docs/index.html` (neobrutalism landing page)
-- [ ] Create `docs/style.css` (embeddable or inline)
-- [ ] Include social links (GitHub: Eldevode, X: Eldevode_, org: klips-tooling)
+- [x] Create `docs/index.html` (neobrutalism landing page)
+- [x] Create `docs/style.css` (embeddable or inline)
+- [x] Include social links (GitHub: Eldevode, X: Eldevode_, org: klips-tooling)
+- [x] Add dark mode toggle
+- [x] Fix hero subtitle width / centering
 
 ### Phase 5 — Final Cleanup
-- [ ] Review and update `.gitignore`
-- [ ] Verify `packages/cli/package.json` is npm-ready
+- [x] Review and update `.gitignore`
+- [x] Verify `packages/cli/package.json` is npm-ready
+- [x] Transfer repo to `klips-tooling` org
+- [x] Update explorer URLs (testnet: scan.bohr.life)
 
 ---
 
