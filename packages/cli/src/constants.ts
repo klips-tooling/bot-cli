@@ -1,6 +1,6 @@
 import path from 'path';
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.1.2';
 
 export interface NetworkConfig {
   name: string;
