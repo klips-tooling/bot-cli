@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "BOT Chain developer tools monorepo — scaffold, deploy, and ship dApps on BOT Chain",
   "license": "Apache-2.0",
-  "author": "Eldevode <hello@botchain.ai>",
+  "author": "Eldevode <ayoelpraise@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/klips-tooling/bot-cli.git"

@@ -8,7 +8,7 @@ If you discover a security vulnerability in **bot-cli** or any of its templates,
 
 Instead, send an email to:
 
-📧 **security@botchain.ai** (or **hello@botchain.ai** as fallback)
+📧 **security@botchain.ai** (or **ayoelpraise@gmail.com** as fallback)
 
 Please include:
 
