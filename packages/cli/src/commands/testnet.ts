@@ -59,8 +59,8 @@ testnetCommand
         process.platform === 'darwin'
           ? `open "${url}"`
           : process.platform === 'win32'
-          ? `start "${url}"`
-          : `xdg-open "${url}"`;
+            ? `start "${url}"`
+            : `xdg-open "${url}"`;
       execSync(cmd, { stdio: 'ignore' });
       console.log(chalk.green('  ✓ Opened in your browser'));
     } catch {

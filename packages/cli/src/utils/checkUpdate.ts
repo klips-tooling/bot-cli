@@ -1,7 +1,6 @@
 import updateNotifier from 'update-notifier';
 import chalk from 'chalk';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const pkg = require('../../package.json') as { name: string; version: string };
 
 /**
@@ -34,20 +33,20 @@ export function checkForUpdates(): void {
         type === 'major'
           ? chalk.red.bold(type)
           : type === 'minor'
-          ? chalk.yellow.bold(type)
-          : chalk.green.bold(type);
+            ? chalk.yellow.bold(type)
+            : chalk.green.bold(type);
 
       // Detect the package manager the user likely used to install bot-cli
       const ua = process.env.npm_config_user_agent ?? '';
       const pmCmd = ua.startsWith('bun')
         ? `bun add -g ${pkg.name}`
         : ua.startsWith('pnpm')
-        ? `pnpm add -g ${pkg.name}`
-        : `npm install -g ${pkg.name}`;
+          ? `pnpm add -g ${pkg.name}`
+          : `npm install -g ${pkg.name}`;
 
       const inner = 52;
       const line = (text: string) => {
-        const stripped = text.replace(/\x1B\[[0-9;]*m/g, ''); // strip ANSI for length
+        const stripped = text.replace(/\u001b\[[0-9;]*m/gi, ''); // strip ANSI for length
         const pad = Math.max(0, inner - stripped.length);
         return chalk.yellow('│') + text + ' '.repeat(pad) + chalk.yellow('│');
       };

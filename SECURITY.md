@@ -27,9 +27,9 @@ We aim to:
 
 ## Supported Versions
 
-| Version | Supported          |
-|---------|--------------------|
-| 0.1.x   | ✅ Active support  |
+| Version | Supported         |
+| ------- | ----------------- |
+| 0.1.x   | ✅ Active support |
 
 We release patches for the latest minor version. Older versions are not supported.
 

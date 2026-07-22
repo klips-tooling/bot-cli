@@ -7,11 +7,7 @@ export const infoCommand = new Command('info')
   .option('--mainnet', 'Show mainnet details only')
   .option('--testnet', 'Show testnet details only')
   .action((opts) => {
-    const networks = opts.mainnet
-      ? [BOT_MAINNET]
-      : opts.testnet
-      ? [BOT_TESTNET]
-      : NETWORKS;
+    const networks = opts.mainnet ? [BOT_MAINNET] : opts.testnet ? [BOT_TESTNET] : NETWORKS;
 
     console.log();
     console.log(chalk.bold.cyanBright('  🤖  BOT Chain Networks'));
@@ -22,9 +18,7 @@ export const infoCommand = new Command('info')
       const accent = isMainnet ? chalk.green : chalk.yellow;
       const label = isMainnet ? 'MAINNET' : 'TESTNET';
 
-      console.log(
-        `  ${accent.bold(`[${label}]`)}  ${chalk.bold(network.name)}`,
-      );
+      console.log(`  ${accent.bold(`[${label}]`)}  ${chalk.bold(network.name)}`);
       console.log(chalk.dim('  ' + '─'.repeat(46)));
       console.log(`  ${chalk.dim('Chain ID   ')}  ${chalk.bold(network.chainId)}`);
       console.log(`  ${chalk.dim('RPC URL    ')}  ${chalk.cyan(network.rpcUrl)}`);
@@ -39,7 +33,15 @@ export const infoCommand = new Command('info')
       console.log();
     }
 
-    console.log(chalk.dim('  Tip: run ') + chalk.cyan('bot testnet faucet') + chalk.dim(' to get test tokens'));
-    console.log(chalk.dim('       run ') + chalk.cyan('bot testnet metamask') + chalk.dim(' for wallet setup'));
+    console.log(
+      chalk.dim('  Tip: run ') +
+        chalk.cyan('bot testnet faucet') +
+        chalk.dim(' to get test tokens'),
+    );
+    console.log(
+      chalk.dim('       run ') +
+        chalk.cyan('bot testnet metamask') +
+        chalk.dim(' for wallet setup'),
+    );
     console.log();
   });

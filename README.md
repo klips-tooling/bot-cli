@@ -66,19 +66,19 @@ forge test
 
 ### What you'll be prompted for
 
-| Prompt | Options |
-|--------|---------|
-| Project name | Any valid package name |
-| Project type | Fullstack dApp / Smart Contracts Only |
-| Contract framework | Foundry |
-| Contract starter | Counter / Guess the Number |
-| Default network | BOT Testnet / BOT Mainnet |
-| Frontend template | Next.js + React / Vite + React / Vite + Vue / Vite + Vanilla |
-| Package manager | npm / pnpm / Yarn / Bun |
-| TypeScript | Yes / No (frontend only) |
-| Styling | Plain CSS / Tailwind CSS |
-| Initialize git | Yes / No |
-| Linting | None / Prettier / ESLint + Prettier |
+| Prompt             | Options                                                      |
+| ------------------ | ------------------------------------------------------------ |
+| Project name       | Any valid package name                                       |
+| Project type       | Fullstack dApp / Smart Contracts Only                        |
+| Contract framework | Foundry                                                      |
+| Contract starter   | Counter / Guess the Number                                   |
+| Default network    | BOT Testnet / BOT Mainnet                                    |
+| Frontend template  | Next.js + React / Vite + React / Vite + Vue / Vite + Vanilla |
+| Package manager    | npm / pnpm / Yarn / Bun                                      |
+| TypeScript         | Yes / No (frontend only)                                     |
+| Styling            | Plain CSS / Tailwind CSS                                     |
+| Initialize git     | Yes / No                                                     |
+| Linting            | None / Prettier / ESLint + Prettier                          |
 
 ---
 
@@ -108,31 +108,33 @@ my-bot-dapp/
 
 ## 🛠 CLI Commands
 
-| Command | Description |
-|---------|-------------|
-| `bot-cli init` | Scaffold a new BOT Chain project |
-| `bot-cli add [feature]` | Add a contract starter (token, nft) to existing project |
-| `bot-cli compile` | Compile smart contracts (auto-detects Foundry or Hardhat) |
-| `bot-cli deploy` | Deploy smart contracts to BOT Chain (interactive guides & logs) |
-| `bot-cli clean` | Wipe build artifacts (out/, cache/, .next/, dist/) |
-| `bot-cli wallet` | Generate a throwaway dev keypair (address + private key) for testing |
-| `bot-cli config` | Read and write project .env configuration values |
-| `bot-cli testnet` | Testnet tools (faucet browser opener, RPC, MetaMask network configs) |
-| `bot-cli info` | Display BOT Chain network details (mainnet + testnet) |
-| `bot-cli templates` | List all available templates, frameworks, and starters |
-| `bot-cli --version` | Print the CLI version |
-| `bot-cli --help` | Show all available commands (with custom premium colored layout) |
+| Command                 | Description                                                          |
+| ----------------------- | -------------------------------------------------------------------- |
+| `bot-cli init`          | Scaffold a new BOT Chain project                                     |
+| `bot-cli add [feature]` | Add a contract starter (token, nft) to existing project              |
+| `bot-cli compile`       | Compile smart contracts (auto-detects Foundry or Hardhat)            |
+| `bot-cli deploy`        | Deploy smart contracts to BOT Chain (interactive guides & logs)      |
+| `bot-cli clean`         | Wipe build artifacts (out/, cache/, .next/, dist/)                   |
+| `bot-cli wallet`        | Generate a throwaway dev keypair (address + private key) for testing |
+| `bot-cli config`        | Read and write project .env configuration values                     |
+| `bot-cli testnet`       | Testnet tools (faucet browser opener, RPC, MetaMask network configs) |
+| `bot-cli info`          | Display BOT Chain network details (mainnet + testnet)                |
+| `bot-cli templates`     | List all available templates, frameworks, and starters               |
+| `bot-cli --version`     | Print the CLI version                                                |
+| `bot-cli --help`        | Show all available commands (with custom premium colored layout)     |
 
 ---
 
 ## 🌐 Networks
 
 ### BOT Mainnet
+
 - **Chain ID:** `677`
 - **RPC URL:** `https://rpc.botchain.ai`
 - **Explorer:** [https://botscan.ai](https://botscan.ai)
 
 ### BOT Testnet (Bohr)
+
 - **Chain ID:** `968`
 - **RPC URL:** `https://rpc.bohr.life`
 - **Faucet:** [https://faucet.botchain.ai](https://faucet.botchain.ai)

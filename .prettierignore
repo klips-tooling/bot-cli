@@ -1,0 +1,11 @@
+node_modules
+dist
+out
+cache
+.next
+.turbo
+*.sol
+package-lock.json
+pnpm-lock.yaml
+templates
+docs

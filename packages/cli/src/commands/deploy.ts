@@ -32,8 +32,7 @@ async function detectProject(cwd: string) {
     if (await fs.pathExists(path.join(dir, 'foundry.toml')))
       return { dir, framework: 'foundry' as const };
     for (const cfg of ['hardhat.config.ts', 'hardhat.config.js', 'hardhat.config.cjs']) {
-      if (await fs.pathExists(path.join(dir, cfg)))
-        return { dir, framework: 'hardhat' as const };
+      if (await fs.pathExists(path.join(dir, cfg))) return { dir, framework: 'hardhat' as const };
     }
   }
   return null;
@@ -49,9 +48,7 @@ async function listDeployScripts(dir: string, framework: 'foundry' | 'hardhat'):
   } else {
     const scriptDir = path.join(dir, 'scripts');
     if (!(await fs.pathExists(scriptDir))) return [];
-    return (await fs.readdir(scriptDir)).filter(
-      (f) => f.endsWith('.ts') || f.endsWith('.js'),
-    );
+    return (await fs.readdir(scriptDir)).filter((f) => f.endsWith('.ts') || f.endsWith('.js'));
   }
 }
 
@@ -117,10 +114,12 @@ export const deployCommand = new Command('deploy')
       const rpcMatch = foundryConfig.match(/bot-testnet\s*=\s*"([^"]+)"/);
       const defaultRpc = rpcMatch ? rpcMatch[1] : 'https://rpc.bohr.life';
 
-      const rpcUrl = opts.rpc || ((await p.text({
-        message: 'RPC URL',
-        initialValue: defaultRpc,
-      })) as string);
+      const rpcUrl =
+        opts.rpc ||
+        ((await p.text({
+          message: 'RPC URL',
+          initialValue: defaultRpc,
+        })) as string);
       if (isCancel(rpcUrl)) cancelAndExit();
 
       // Private key — check .env first
@@ -158,9 +157,11 @@ export const deployCommand = new Command('deploy')
         const args = [
           'script',
           `script/${scriptName}.s.sol`,
-          '--rpc-url', rpcUrl,
+          '--rpc-url',
+          rpcUrl,
           '--broadcast',
-          '--private-key', privateKey,
+          '--private-key',
+          privateKey,
         ];
         if (sender) args.push('--sender', sender);
 
@@ -189,9 +190,7 @@ export const deployCommand = new Command('deploy')
         s.stop(chalk.red('✗ Deploy failed'));
         console.log();
         console.log(err.all ?? err.message);
-        p.cancel(
-          `Deployment failed.\n\nIf this is a bug, file an issue: ${chalk.cyan(ISSUE_URL)}`,
-        );
+        p.cancel(`Deployment failed.\n\nIf this is a bug, file an issue: ${chalk.cyan(ISSUE_URL)}`);
         process.exit(1);
       }
     }
@@ -255,9 +254,7 @@ export const deployCommand = new Command('deploy')
         s.stop(chalk.red('✗ Deploy failed'));
         console.log();
         console.log(err.all ?? err.message);
-        p.cancel(
-          `Deployment failed.\n\nIf this is a bug, file an issue: ${chalk.cyan(ISSUE_URL)}`,
-        );
+        p.cancel(`Deployment failed.\n\nIf this is a bug, file an issue: ${chalk.cyan(ISSUE_URL)}`);
         process.exit(1);
       }
     }

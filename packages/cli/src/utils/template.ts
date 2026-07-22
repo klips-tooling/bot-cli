@@ -21,7 +21,7 @@ export async function listTemplates(): Promise<TemplateDescriptor[]> {
     if (!entry.isDirectory()) continue;
     const descriptorPath = path.join(root, entry.name, 'template.json');
     if (!(await fs.pathExists(descriptorPath))) continue;
-    const descriptor = await fs.readJson(descriptorPath) as TemplateDescriptor;
+    const descriptor = (await fs.readJson(descriptorPath)) as TemplateDescriptor;
     templates.push({ ...descriptor, name: entry.name });
   }
 
@@ -198,10 +198,7 @@ export default [
   await runPackageManager(pm, getAddCommand(pm, deps, true), targetDir);
 }
 
-export async function applyTailwind(
-  targetDir: string,
-  pm: PackageManager,
-): Promise<void> {
+export async function applyTailwind(targetDir: string, pm: PackageManager): Promise<void> {
   // Swap in Tailwind CSS file if present
   const stylePath = path.join(targetDir, 'src/style.css');
   const tailwindStylePath = path.join(targetDir, 'src/style.tailwind.css');

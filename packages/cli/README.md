@@ -39,14 +39,14 @@ Answer the prompts — the CLI scaffolds a full project with your choices of:
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `bot-cli init` | Scaffold a new BOT Chain project |
-| `bot-cli add` | Add components or contracts (coming soon) |
-| `bot-cli deploy` | Print Foundry deployment guidance |
-| `bot-cli testnet` | Show BOT Testnet faucet, RPC & explorer |
-| `bot-cli info` | Display BOT Chain network details |
-| `bot-cli --version` | Print CLI version |
+| Command             | Description                               |
+| ------------------- | ----------------------------------------- |
+| `bot-cli init`      | Scaffold a new BOT Chain project          |
+| `bot-cli add`       | Add components or contracts (coming soon) |
+| `bot-cli deploy`    | Print Foundry deployment guidance         |
+| `bot-cli testnet`   | Show BOT Testnet faucet, RPC & explorer   |
+| `bot-cli info`      | Display BOT Chain network details         |
+| `bot-cli --version` | Print CLI version                         |
 
 ## What you get
 
@@ -58,6 +58,7 @@ my-dapp/
 ```
 
 Every frontend template ships with:
+
 - **Wallet connection** — wagmi + RainbowKit pre-configured
 - **Contract playground** — read/write functions from the UI
 - **Dark/light mode** — theme toggle built in
@@ -65,10 +66,10 @@ Every frontend template ships with:
 
 ## Networks
 
-| Network | Chain ID | RPC |
-|---------|----------|-----|
-| BOT Mainnet | 677 | `https://rpc.botchain.ai` |
-| BOT Testnet (Bohr) | 968 | `https://rpc.bohr.life` |
+| Network            | Chain ID | RPC                       |
+| ------------------ | -------- | ------------------------- |
+| BOT Mainnet        | 677      | `https://rpc.botchain.ai` |
+| BOT Testnet (Bohr) | 968      | `https://rpc.bohr.life`   |
 
 ## Links
 

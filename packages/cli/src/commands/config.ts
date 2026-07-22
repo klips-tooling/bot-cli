@@ -103,10 +103,16 @@ configCommand
   .description('Get a single .env value')
   .action(async (key: string) => {
     const envPath = await findEnvFile(process.cwd());
-    if (!envPath) { console.error('No .env file found.'); process.exit(1); }
+    if (!envPath) {
+      console.error('No .env file found.');
+      process.exit(1);
+    }
     const vars = parseEnv(await fs.readFile(envPath, 'utf-8'));
     const entry = vars.get(key.toUpperCase());
-    if (!entry) { console.error(chalk.red(`Key "${key}" not found in .env`)); process.exit(1); }
+    if (!entry) {
+      console.error(chalk.red(`Key "${key}" not found in .env`));
+      process.exit(1);
+    }
     console.log(entry.value);
   });
 
@@ -156,7 +162,8 @@ configCommand
 
     const rpcUrl = await p.text({
       message: 'RPC URL',
-      initialValue: get('NEXT_PUBLIC_BOT_RPC_URL') || get('VITE_BOT_RPC_URL') || 'https://rpc.bohr.life',
+      initialValue:
+        get('NEXT_PUBLIC_BOT_RPC_URL') || get('VITE_BOT_RPC_URL') || 'https://rpc.bohr.life',
     });
     if (isCancel(rpcUrl)) cancelAndExit();
 
@@ -176,16 +183,15 @@ configCommand
     const wcProjectId = await p.text({
       message: 'WalletConnect Project ID (from cloud.walletconnect.com)',
       initialValue:
-        get('NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID') ||
-        get('VITE_WALLETCONNECT_PROJECT_ID') ||
-        '',
+        get('NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID') || get('VITE_WALLETCONNECT_PROJECT_ID') || '',
       placeholder: 'your_project_id_here',
     });
     if (isCancel(wcProjectId)) cancelAndExit();
 
     // Detect which prefix to use
-    const isNext = await fs.pathExists(path.join(cwd, 'next.config.mjs'))
-      || await fs.pathExists(path.join(cwd, 'next.config.js'));
+    const isNext =
+      (await fs.pathExists(path.join(cwd, 'next.config.mjs'))) ||
+      (await fs.pathExists(path.join(cwd, 'next.config.js')));
     const prefix = isNext ? 'NEXT_PUBLIC_' : 'VITE_';
 
     const updates: Record<string, string> = {

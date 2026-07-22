@@ -7,11 +7,11 @@ import { printBanner } from '../utils/prompts.js';
 
 // Directories to wipe, keyed by label
 const CLEAN_TARGETS = [
-  { name: 'out/',       relPath: 'out',        desc: 'Foundry build output' },
-  { name: 'cache/',     relPath: 'cache',       desc: 'Foundry build cache' },
-  { name: 'artifacts/', relPath: 'artifacts',   desc: 'Hardhat build output' },
-  { name: '.next/',     relPath: '.next',       desc: 'Next.js build cache' },
-  { name: 'dist/',      relPath: 'dist',        desc: 'Vite / frontend build' },
+  { name: 'out/', relPath: 'out', desc: 'Foundry build output' },
+  { name: 'cache/', relPath: 'cache', desc: 'Foundry build cache' },
+  { name: 'artifacts/', relPath: 'artifacts', desc: 'Hardhat build output' },
+  { name: '.next/', relPath: '.next', desc: 'Next.js build cache' },
+  { name: 'dist/', relPath: 'dist', desc: 'Vite / frontend build' },
   { name: 'typechain-types/', relPath: 'typechain-types', desc: 'Hardhat TypeChain output' },
 ];
 
@@ -31,7 +31,9 @@ async function getDirSize(dirPath: string): Promise<number> {
       if (!stat) continue;
       total += stat.isDirectory() ? await getDirSize(full) : stat.size;
     }
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
   return total;
 }
 
@@ -78,9 +80,7 @@ export const cleanCommand = new Command('clean')
       );
     }
     console.log();
-    console.log(
-      `  ${chalk.bold('Total:')} ${chalk.yellow(formatBytes(totalSize))} will be freed`,
-    );
+    console.log(`  ${chalk.bold('Total:')} ${chalk.yellow(formatBytes(totalSize))} will be freed`);
     console.log();
 
     // Confirm
@@ -108,7 +108,9 @@ export const cleanCommand = new Command('clean')
       }
     }
 
-    s.stop(chalk.green(`✓ Removed ${deleted}/${found.length} director${deleted === 1 ? 'y' : 'ies'}`));
+    s.stop(
+      chalk.green(`✓ Removed ${deleted}/${found.length} director${deleted === 1 ? 'y' : 'ies'}`),
+    );
     p.note(`Freed ${chalk.yellow(formatBytes(totalSize))}`, '🗑  Cleaned');
     p.outro(chalk.green('Done.'));
   });

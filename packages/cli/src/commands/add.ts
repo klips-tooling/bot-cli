@@ -70,8 +70,7 @@ export const addCommand = new Command('add')
     // Ask for a custom contract name
     const contractName = await p.text({
       message: `Contract name`,
-      initialValue:
-        feature === 'token' ? 'MyToken' : 'MyNFT',
+      initialValue: feature === 'token' ? 'MyToken' : 'MyNFT',
       validate: (v) => {
         if (!v || v.trim().length === 0) return 'Required';
         if (!/^[A-Z][a-zA-Z0-9]*$/.test(v))
@@ -80,27 +79,29 @@ export const addCommand = new Command('add')
     });
     if (isCancel(contractName)) cancelAndExit();
 
-    let symbol = '';
-    if (feature === 'token') {
-      const s = await p.text({
-        message: 'Token symbol (e.g. MTK)',
-        initialValue: 'MTK',
-        validate: (v) => {
-          if (!v || v.trim().length === 0) return 'Required';
-          if (v.length > 11) return 'Symbol should be 11 chars or fewer';
-        },
-      });
-      if (isCancel(s)) cancelAndExit();
-      symbol = s as string;
-    } else {
-      const s = await p.text({
-        message: 'NFT symbol (e.g. MNFT)',
-        initialValue: 'MNFT',
-        validate: (v) => (!v || v.trim().length === 0 ? 'Required' : undefined),
-      });
-      if (isCancel(s)) cancelAndExit();
-      symbol = s as string;
-    }
+    const getSymbol = async (): Promise<string> => {
+      if (feature === 'token') {
+        const s = await p.text({
+          message: 'Token symbol (e.g. MTK)',
+          initialValue: 'MTK',
+          validate: (v) => {
+            if (!v || v.trim().length === 0) return 'Required';
+            if (v.length > 11) return 'Symbol should be 11 chars or fewer';
+          },
+        });
+        if (isCancel(s)) cancelAndExit();
+        return s as string;
+      } else {
+        const s = await p.text({
+          message: 'NFT symbol (e.g. MNFT)',
+          initialValue: 'MNFT',
+          validate: (v) => (!v || v.trim().length === 0 ? 'Required' : undefined),
+        });
+        if (isCancel(s)) cancelAndExit();
+        return s as string;
+      }
+    };
+    const symbol = await getSymbol();
 
     // Locate destination
     const cwd = process.cwd();

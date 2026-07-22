@@ -12,10 +12,7 @@ function generatePrivateKey(): Buffer {
   // Keep generating until we get a valid secp256k1 private key
   // Valid range: 1 <= key < curve order (n)
   // n = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
-  const n = Buffer.from(
-    'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141',
-    'hex',
-  );
+  const n = Buffer.from('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141', 'hex');
   while (true) {
     const key = randomBytes(32);
     // key must be > 0 and < n
@@ -25,9 +22,9 @@ function generatePrivateKey(): Buffer {
 
 function privateKeyToAddress(privateKeyHex: string): string {
   // Dynamically require @noble/curves (bundled by tsup)
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+
   const { secp256k1 } = require('@noble/curves/secp256k1.js');
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+
   const { keccak_256 } = require('@noble/hashes/sha3.js');
 
   const privateKeyBytes = Buffer.from(privateKeyHex.replace('0x', ''), 'hex');
@@ -42,7 +39,6 @@ function privateKeyToAddress(privateKeyHex: string): string {
 }
 
 function toChecksumAddress(address: string): string {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { keccak_256 } = require('@noble/hashes/sha3.js');
   const addr = address.toLowerCase();
   const hash = Buffer.from(keccak_256(Buffer.from(addr, 'utf8'))).toString('hex');

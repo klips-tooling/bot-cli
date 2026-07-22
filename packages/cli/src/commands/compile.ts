@@ -101,10 +101,7 @@ export const compileCommand = new Command('compile')
     }
 
     // Show output dir
-    const outDir =
-      framework === 'foundry'
-        ? path.join(dir, 'out')
-        : path.join(dir, 'artifacts');
+    const outDir = framework === 'foundry' ? path.join(dir, 'out') : path.join(dir, 'artifacts');
     p.note(chalk.dim(outDir), '📦 Artifacts written to');
     p.outro(chalk.green('Compilation complete.'));
   });

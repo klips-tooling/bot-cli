@@ -103,10 +103,14 @@ const templatesCommand = new Command('templates')
     console.log();
     console.log(chalk.dim(`${i}Contract Frameworks:`));
     console.log(`${i}  ${chalk.cyan('foundry')}           Foundry (forge) — fast, Rust-based`);
-    console.log(`${i}  ${chalk.cyan('hardhat')}           Hardhat — JS/TS, extensive plugin ecosystem`);
+    console.log(
+      `${i}  ${chalk.cyan('hardhat')}           Hardhat — JS/TS, extensive plugin ecosystem`,
+    );
     console.log();
     console.log(chalk.dim(`${i}Contract Starters:`));
-    console.log(`${i}  ${chalk.cyan('counter')}           Simple counter contract (read/write state)`);
+    console.log(
+      `${i}  ${chalk.cyan('counter')}           Simple counter contract (read/write state)`,
+    );
     console.log(`${i}  ${chalk.cyan('guess-the-number')}  Number guessing game contract`);
     console.log();
     console.log(chalk.dim(`${i}Frontend Templates (Fullstack dApp only):`));
@@ -116,7 +120,9 @@ const templatesCommand = new Command('templates')
     console.log(`${i}  ${chalk.cyan('vite-vanilla')}      Vite + Vanilla JS`);
     console.log();
     console.log(chalk.dim(`${i}Package Managers:`));
-    console.log(`${i}  ${chalk.cyan('bun')}  ${chalk.cyan('npm')}  ${chalk.cyan('yarn')}  ${chalk.cyan('pnpm')}`);
+    console.log(
+      `${i}  ${chalk.cyan('bun')}  ${chalk.cyan('npm')}  ${chalk.cyan('yarn')}  ${chalk.cyan('pnpm')}`,
+    );
     console.log();
     console.log(`${i}Run ${chalk.cyan('bot init')} to scaffold a project.`);
     console.log();

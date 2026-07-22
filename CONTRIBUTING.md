@@ -78,6 +78,7 @@ bot-cli/
 ## How to contribute
 
 ### 1. Report a bug
+
 Open an issue using the [Bug Report template](https://github.com/klips-tooling/bot-cli/issues/new?template=bug_report.md). Include:
 
 - CLI version (`bot-cli --version`)
@@ -86,6 +87,7 @@ Open an issue using the [Bug Report template](https://github.com/klips-tooling/b
 - Expected vs actual behavior
 
 ### 2. Request a feature
+
 Open an issue using the [Feature Request template](https://github.com/klips-tooling/bot-cli/issues/new?template=feature_request.md).
 
 ### 3. Submit a pull request
