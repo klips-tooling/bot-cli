@@ -36,7 +36,8 @@
     "format": "prettier --write .",
     "prepare": "husky",
     "publish": "turbo run build && cd packages/cli && npm publish",
-    "botdev": "node packages/cli/dist/index.js"
+    "botdev": "node packages/cli/dist/index.js",
+    "link-local": "mkdir -p ~/.bun/bin && printf '#!/bin/bash\\nNODE_PATH=\\\"'$(pwd)'/packages/cli/node_modules\\\" node \\\"'$(pwd)'/packages/cli/dist/index.js\\\" \\\"$@\\\"\\n' > ~/.bun/bin/bot-cli-local && chmod +x ~/.bun/bin/bot-cli-local && echo '✓ bot-cli-local linked!'"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
