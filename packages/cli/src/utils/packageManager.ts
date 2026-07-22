@@ -38,9 +38,15 @@ export async function runPackageManager(
   pm: PackageManager,
   args: string[],
   cwd: string,
+  label?: string,
 ): Promise<void> {
   const [cmd, ...rest] = args;
-  await execa(cmd, rest, { cwd, stdio: 'inherit' });
+  // Pipe output — raw bun/npm install trails are noisy and not useful to users
+  const result = await execa(cmd, rest, { cwd, stdio: 'pipe', all: true });
+  // Surface any actual errors from stderr without the install noise
+  if (result.exitCode !== 0 && result.stderr) {
+    throw new Error(result.stderr);
+  }
 }
 
 export function packageManagerLabel(pm: PackageManager): string {

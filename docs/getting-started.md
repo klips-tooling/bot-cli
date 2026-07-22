@@ -9,38 +9,36 @@ npm install -g @klips-tooling/bot-cli
 ## Create a project
 
 ```bash
-botdev init
+bot-cli init
 ```
 
 You will be prompted for:
 
 1. Project name
 2. Project type (Smart Contracts Only / Fullstack dApp)
-3. Contract framework (Foundry)
-4. Contract starter: Counter or Guess the Number
-5. Default network (BOT Testnet / BOT Mainnet)
-6. Frontend template (if fullstack): Vite + Vanilla, Vite + Vue, or Vite + React
-7. Package manager (npm, Yarn, Bun)
-8. TypeScript (frontend)
-9. Styling (Plain CSS / Tailwind CSS)
-10. Initialize a git repository
-11. Linting / formatting: None, Prettier, or ESLint + Prettier
+3. Contract framework (Foundry / Hardhat)
+4. Default network (BOT Testnet / BOT Mainnet)
+5. Contract starter: Counter or Guess the Number
+6. Frontend template (if fullstack): Next.js + React, Vite + React, Vite + Vue, or Vite + Vanilla
+7. Linting / formatting: None, Prettier, or ESLint + Prettier
+8. Package manager (npm, Yarn, Bun, pnpm)
 
 ## Smart contracts only
 
 ```bash
-botdev init
+bot-cli init
 # choose "Smart Contracts Only"
 
 cd my-bot-project
-forge test
-forge script script/DeployCounter.s.sol --rpc-url https://rpc.bohr.life --broadcast
+bot-cli compile
+bot-cli wallet
+bot-cli deploy
 ```
 
 ## Fullstack dApp
 
 ```bash
-botdev init
+bot-cli init
 # choose "Fullstack dApp"
 
 cd my-bot-project/frontend
@@ -51,11 +49,17 @@ Contracts live in `contracts/`. The frontend uses `viem` + `wagmi` and is pre-co
 
 ## Switch networks
 
-Copy `.env.example` to `.env` in the frontend and set:
+Use the built-in configuration utility to edit the project's settings:
+
+```bash
+bot-cli config interactive
+```
+
+Alternatively, copy `.env.example` to `.env` in the frontend/root folder and set:
 
 ```env
-VITE_BOT_CHAIN_ID=968
-VITE_BOT_RPC_URL=https://rpc.bohr.life
+NEXT_PUBLIC_BOT_CHAIN_ID=968
+NEXT_PUBLIC_BOT_RPC_URL=https://rpc.bohr.life
 ```
 
 For mainnet, use chain ID `677` and RPC `https://rpc.botchain.ai`.
@@ -63,7 +67,13 @@ For mainnet, use chain ID `677` and RPC `https://rpc.botchain.ai`.
 ## Useful commands
 
 ```bash
-botdev info      # Show network info
-botdev testnet   # Show testnet faucet + RPC
-botdev deploy    # Deploy guidance
+bot-cli templates            # List all available templates
+bot-cli compile              # Compile smart contracts
+bot-cli wallet               # Generate a throwaway dev keypair for testing
+bot-cli deploy               # Deploy smart contracts to BOT Chain
+bot-cli clean                # Wipe build artifacts
+bot-cli config interactive   # Edit configuration values interactively
+bot-cli testnet faucet       # Get free testnet tokens (opens browser)
+bot-cli testnet metamask     # View MetaMask network settings
+bot-cli info                 # Show network details
 ```

@@ -111,12 +111,17 @@ my-bot-dapp/
 | Command | Description |
 |---------|-------------|
 | `bot-cli init` | Scaffold a new BOT Chain project |
-| `bot-cli add <feature>` | Add components or contracts (coming soon) |
-| `bot-cli deploy` | Print deployment guidance for Foundry |
-| `bot-cli testnet` | Show BOT Testnet faucet, RPC, and explorer links |
+| `bot-cli add [feature]` | Add a contract starter (token, nft) to existing project |
+| `bot-cli compile` | Compile smart contracts (auto-detects Foundry or Hardhat) |
+| `bot-cli deploy` | Deploy smart contracts to BOT Chain (interactive guides & logs) |
+| `bot-cli clean` | Wipe build artifacts (out/, cache/, .next/, dist/) |
+| `bot-cli wallet` | Generate a throwaway dev keypair (address + private key) for testing |
+| `bot-cli config` | Read and write project .env configuration values |
+| `bot-cli testnet` | Testnet tools (faucet browser opener, RPC, MetaMask network configs) |
 | `bot-cli info` | Display BOT Chain network details (mainnet + testnet) |
+| `bot-cli templates` | List all available templates, frameworks, and starters |
 | `bot-cli --version` | Print the CLI version |
-| `bot-cli --help` | Show all available commands |
+| `bot-cli --help` | Show all available commands (with custom premium colored layout) |
 
 ---
 

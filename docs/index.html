@@ -30,13 +30,234 @@
       --sh-sm:0 0 0 1px #10A37F33;--sh-md:0 0 0 1px #10A37F33;--sh-lg:0 0 0 1px #10A37F44;
     }
 
-    html{scroll-behavior:smooth;font-size:16px}
-    body{font-family:var(--font-sans);background:var(--bg);color:var(--fg);min-height:100vh;line-height:1.5;transition:var(--transition)}
+    html{scroll-behavior:smooth;font-size:16px;background:var(--bg);}
+    body{
+      font-family:var(--font-sans);
+      background:transparent; /* transparent to let canvas shine through from underneath */
+      color:var(--fg);
+      min-height:100vh;
+      line-height:1.5;
+      transition:var(--transition);
+      position:relative;
+      overflow-x:hidden;
+    }
 
-    .container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+    /* ── Animated Background ──────────────────────────── */
+    .bg-anim-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.9;
+      background: var(--bg); /* Solid background at the very bottom */
+      transition: background 0.25s ease;
+    }
+    .bg-grid {
+      position: absolute;
+      top: -5%;
+      left: -5%;
+      width: 110%;
+      height: 110%;
+      background-size: 50px 50px;
+      background-image: 
+        linear-gradient(to right, rgba(10, 10, 10, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(10, 10, 10, 0.06) 1px, transparent 1px);
+      filter: blur(2px);
+      animation: gridGlitch 6s steps(4) infinite;
+    }
+    [data-theme="dark"] .bg-grid {
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    .bg-blobs {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      filter: blur(120px); /* Heavy blur to keep it unobtrusive */
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      mix-blend-mode: multiply;
+      opacity: 0.12;
+      animation: floatBlob 20s ease-in-out infinite, blobGlitch 8s steps(6) infinite;
+    }
+    [data-theme="dark"] .blob {
+      mix-blend-mode: screen;
+      opacity: 0.05;
+    }
+    .blob-1 {
+      top: 5%;
+      left: 15%;
+      width: 350px;
+      height: 350px;
+      background: var(--hero-bg);
+      animation-delay: 0s, -2s;
+    }
+    .blob-2 {
+      top: 45%;
+      right: 10%;
+      width: 450px;
+      height: 450px;
+      background: var(--accent);
+      animation-delay: -5s, -4s;
+    }
+    .blob-3 {
+      bottom: 5%;
+      left: 25%;
+      width: 400px;
+      height: 400px;
+      background: #FF5FA6;
+      animation-delay: -10s, -6s;
+    }
+
+    /* Glitch Scanline Overlay */
+    .glitch-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(10, 10, 10, 0.04) 50%,
+        rgba(10, 10, 10, 0.04)
+      );
+      background-size: 100% 4px;
+      z-index: -1;
+      opacity: 0.7;
+    }
+    [data-theme="dark"] .glitch-lines {
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0),
+        rgba(0,0,0,0) 50%,
+        rgba(255, 255, 255, 0.015) 50%,
+        rgba(255, 255, 255, 0.015)
+      );
+      background-size: 100% 4px;
+    }
+
+    /* CSS Keyframes for Glitch and Floating Effects */
+    @keyframes gridGlitch {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      20% {
+        transform: translate(-2px, 3px) scale(1.01);
+        opacity: 0.85;
+      }
+      40% {
+        transform: translate(3px, -1px) scale(0.99) skewX(2deg);
+        opacity: 0.95;
+      }
+      60% {
+        transform: translate(-3px, -3px) scale(1.02);
+        opacity: 0.8;
+      }
+      80% {
+        transform: translate(2px, 2px) scale(1) skewY(-1deg);
+        opacity: 0.9;
+      }
+    }
+
+    @keyframes blobGlitch {
+      0%, 100% {
+        transform: skew(0deg) scale(1);
+        filter: hue-rotate(0deg);
+      }
+      30% {
+        transform: skew(4deg) scale(1.05);
+        filter: hue-rotate(20deg);
+      }
+      70% {
+        transform: skew(-3deg) scale(0.95);
+        filter: hue-rotate(-15deg);
+      }
+    }
+
+    @keyframes floatBlob {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(40px, -60px); }
+    }
+
+    .bg-watermark {
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-sans);
+      font-size: clamp(4rem, 16vw, 15rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.06em;
+      color: rgba(10, 10, 10, 0.15); /* Brighter for light mode */
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      z-index: -1;
+      filter: blur(8px); /* Blurred to look integrated and avoid distraction */
+      animation: watermarkFloat 20s ease-in-out infinite; /* No more glitch, just smooth float */
+    }
+    [data-theme="dark"] .bg-watermark {
+      color: rgba(0, 255, 102, 0.08); /* Brighter neon tint with blur glow in dark mode */
+      text-shadow: 0 0 20px rgba(0, 255, 102, 0.15);
+    }
+
+    @keyframes watermarkGlitch {
+      0%, 100% {
+        transform: translate(-50%, -50%) skew(0deg);
+        clip-path: inset(0 0 0 0);
+      }
+      18% {
+        clip-path: inset(15% 0 45% 0);
+        transform: translate(-48%, -51%) skew(4deg);
+      }
+      20% {
+        clip-path: inset(0 0 0 0);
+        transform: translate(-50%, -50%) skew(0deg);
+      }
+      45% {
+        clip-path: inset(50% 0 10% 0);
+        transform: translate(-51%, -48%) skew(-6deg);
+      }
+      47% {
+        clip-path: inset(0 0 0 0);
+        transform: translate(-50%, -50%) skew(0deg);
+      }
+      80% {
+        clip-path: inset(5% 0 65% 0);
+        transform: translate(-49%, -50%) skew(3deg);
+      }
+      82% {
+        clip-path: inset(0 0 0 0);
+        transform: translate(-50%, -50%) skew(0deg);
+      }
+    }
+
+    @keyframes watermarkFloat {
+      0%, 100% {
+        transform: translate(-50%, -50%) translateY(0px) rotate(-3deg);
+      }
+      50% {
+        transform: translate(-50%, -50%) translateY(-25px) rotate(-1deg);
+      }
+    }
+
+    .container{max-width:1100px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1}
 
     /* ── Navbar ───────────────────────────────────────── */
-    .navbar-wrap{border-bottom:var(--border-w) solid var(--border);transition:border-color .25s ease}
+    .navbar-wrap{background:var(--bg);border-bottom:var(--border-w) solid var(--border);transition:border-color .25s ease;position:relative;z-index:100;}
     .navbar{
       display:flex;align-items:center;justify-content:space-between;
       flex-wrap:wrap;gap:.75rem;padding:1.25rem 0 1.5rem;
@@ -138,6 +359,7 @@
       display:grid;grid-template-columns:repeat(3,1fr);gap:0;
       margin-bottom:4rem;border:var(--border-w) solid var(--border);
       box-shadow:var(--sh-lg);transition:border-color .25s ease;
+      background:var(--bg-card); /* Solid background to block canvas bleed-through at borders */
     }
     @media(max-width:768px){.features{grid-template-columns:1fr}}
     .card{
@@ -197,7 +419,7 @@
 
     /* ── Commands ────────────────────────────────────── */
     .commands-section{margin-bottom:4rem}
-    .cmd-table{width:100%;border-collapse:collapse;border:var(--border-w) solid var(--border);box-shadow:var(--sh-md);transition:border-color .25s ease}
+    .cmd-table{width:100%;border-collapse:collapse;border:var(--border-w) solid var(--border);box-shadow:var(--sh-md);transition:border-color .25s ease;background:var(--bg-card);}
     .cmd-table th{
       text-align:left;padding:.85rem 1rem;font-family:var(--font-mono);
       font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
@@ -245,9 +467,13 @@
     /* ── Footer ──────────────────────────────────────── */
     .footer{
       display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
-      gap:1.25rem;padding:2rem 0;border-top:var(--border-w) solid var(--border);
+      gap:1.25rem;padding:2rem 0 5.5rem; /* Add 5.5rem bottom padding so terminal doesn't block it */
+      border-top:var(--border-w) solid var(--border);
       font-family:var(--font-mono);font-size:.72rem;font-weight:600;color:var(--muted);
       text-align:center;transition:border-color .25s ease;
+      background:var(--bg);
+      position:relative;
+      z-index:100;
     }
     .footer a{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
     .footer a:hover{background:var(--fg);color:var(--bg)}
@@ -293,12 +519,25 @@
 </head>
 <body>
 
+<!-- Background Animation Elements -->
+<div class="bg-anim-container">
+  <canvas id="ascii-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;"></canvas>
+  <div class="bg-grid"></div>
+  <div class="glitch-lines"></div>
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="bg-watermark">klips-tooling</div>
+</div>
+
 <!-- Navbar -->
 <div class="navbar-wrap">
   <nav class="navbar container">
     <div class="brand">
       <img src="logo.svg" alt="BOT Chain CLI">
-      <span class="brand-title">bot-cli</span>
+      <span class="brand-title"><span style="opacity: 0.5; font-weight: 500;">klips-tooling / </span>bot-cli</span>
     </div>
     <div class="nav-right">
       <button class="theme-btn" id="theme-toggle" aria-label="Toggle dark mode">
@@ -461,12 +700,17 @@
     </thead>
     <tbody>
       <tr><td><code>bot-cli init</code></td><td>Scaffold a new BOT Chain project</td></tr>
-      <tr><td><code>bot-cli add</code></td><td>Add components or contracts (coming soon)</td></tr>
-      <tr><td><code>bot-cli deploy</code></td><td>Print Foundry deployment guidance</td></tr>
-      <tr><td><code>bot-cli testnet</code></td><td>Show BOT Testnet faucet, RPC &amp; explorer</td></tr>
-      <tr><td><code>bot-cli info</code></td><td>Display BOT Chain network details</td></tr>
+      <tr><td><code>bot-cli add [feature]</code></td><td>Add a contract starter (token, nft) to existing project</td></tr>
+      <tr><td><code>bot-cli compile</code></td><td>Compile contracts (auto-detects Foundry or Hardhat)</td></tr>
+      <tr><td><code>bot-cli deploy</code></td><td>Deploy smart contracts to BOT Chain (Foundry / Hardhat support)</td></tr>
+      <tr><td><code>bot-cli clean</code></td><td>Wipe build artifacts (out/, cache/, .next/, dist/)</td></tr>
+      <tr><td><code>bot-cli wallet</code></td><td>Generate a throwaway dev keypair (address + private key) for testing</td></tr>
+      <tr><td><code>bot-cli config</code></td><td>Read / write project .env configuration (list, get, set, interactive)</td></tr>
+      <tr><td><code>bot-cli testnet</code></td><td>Testnet tools — faucet (opens browser), RPC, MetaMask wallet configuration</td></tr>
+      <tr><td><code>bot-cli info</code></td><td>Display BOT Chain network details (Mainnet/Testnet options)</td></tr>
+      <tr><td><code>bot-cli templates</code></td><td>List all available project templates, frameworks, and starters</td></tr>
       <tr><td><code>bot-cli --version</code></td><td>Print the CLI version</td></tr>
-      <tr><td><code>bot-cli --help</code></td><td>Show all available commands</td></tr>
+      <tr><td><code>bot-cli --help</code></td><td>Show all available commands (with custom premium colored layout)</td></tr>
     </tbody>
   </table>
 </div>
@@ -523,6 +767,48 @@
   </div>
 </footer>
 
+<!-- Bottom Interactive Terminal Bar (matching Covalent style) -->
+<div class="bottom-terminal-bar">
+  <span class="prompt-user">klips-tooling@bot-chain:~$</span>
+  <span class="prompt-cmd">bot-cli init --list-templates</span>
+  <span class="prompt-cursor">_</span>
+</div>
+
+<style>
+.bottom-terminal-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #A4EF6B;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 999;
+}
+.bottom-terminal-bar .prompt-user {
+  color: #10A37F;
+  font-weight: 700;
+}
+.bottom-terminal-bar .prompt-cmd {
+  color: #FFF;
+}
+.bottom-terminal-bar .prompt-cursor {
+  animation: blinkCursor 1s step-end infinite;
+  color: #FFE01B;
+  font-weight: 700;
+}
+@keyframes blinkCursor {
+  50% { opacity: 0; }
+}
+</style>
+
 <script>
   // Dark mode toggle
   const toggle = document.getElementById('theme-toggle');
@@ -558,6 +844,103 @@
       pmCmd.innerHTML = '<span>' + cmds[tab.dataset.pm] + '</span>';
     });
   });
+
+  // ── Interactive ASCII Canvas Background (Covalent Style) ──────────────────────
+  const canvas = document.getElementById('ascii-canvas');
+  const ctx = canvas.getContext('2d');
+
+  let width = (canvas.width = window.innerWidth);
+  let height = (canvas.height = window.innerHeight);
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  const mouse = { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2 };
+
+  window.addEventListener('mousemove', (e) => {
+    mouse.targetX = e.clientX;
+    mouse.targetY = e.clientY;
+  });
+
+  // Characters used to build the interactive matrix
+  const chars = 'KLIPS-TOOLING+*#%@=:. ';
+  const fontStep = 18; // Grid resolution
+
+  let angleX = 0;
+  let angleY = 0;
+
+  function renderAscii() {
+    ctx.clearRect(0, 0, width, height);
+
+    // Smooth mouse interpolation
+    mouse.x += (mouse.targetX - mouse.x) * 0.08;
+    mouse.y += (mouse.targetY - mouse.y) * 0.08;
+
+    angleX += 0.005;
+    angleY += 0.003;
+
+    const cols = Math.floor(width / fontStep);
+    const rows = Math.floor(height / fontStep);
+
+    ctx.font = '12px "Space Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const x = c * fontStep + fontStep / 2;
+        const y = r * fontStep + fontStep / 2;
+
+        // Calculate distance to mouse
+        const dx = x - mouse.x;
+        const dy = y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        // Repulsion & ripple effect around mouse
+        const maxDist = 140; // Tighter, more subtle hover radius
+        let offsetX = 0;
+        let offsetY = 0;
+        let intensity = 0;
+
+        if (dist < maxDist) {
+          const factor = (1 - dist / maxDist);
+          intensity = factor;
+          offsetX = (dx / dist) * factor * 15; // Reduced offset displacement
+          offsetY = (dy / dist) * factor * 15;
+        }
+
+        // Generate ASCII shape patterns (3D sphere / wave distortion)
+        const wave = Math.sin(c * 0.15 + angleX) * Math.cos(r * 0.15 + angleY);
+        const charIdx = Math.floor(Math.abs(wave + intensity) * chars.length) % chars.length;
+        const char = chars[charIdx];
+
+        // Color styling — subtle highlights with smooth transparency scaling
+        ctx.shadowBlur = 0;
+        if (intensity > 0.1) {
+          // Subtle glow blend that scales with proximity
+          if (isDark) {
+            ctx.fillStyle = `rgba(0, 255, 102, ${0.05 + wave * 0.03 + intensity * 0.15})`;
+          } else {
+            ctx.fillStyle = `rgba(28, 216, 176, ${0.08 + wave * 0.04 + intensity * 0.22})`;
+          }
+        } else if (isDark) {
+          ctx.fillStyle = `rgba(255, 255, 255, ${0.05 + wave * 0.03})`;
+        } else {
+          ctx.fillStyle = `rgba(10, 10, 10, ${0.08 + wave * 0.04})`;
+        }
+
+        ctx.fillText(char, x + offsetX, y + offsetY);
+      }
+    }
+
+    requestAnimationFrame(renderAscii);
+  }
+
+  renderAscii();
 </script>
 
 </body>

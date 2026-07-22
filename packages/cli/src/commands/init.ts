@@ -35,9 +35,37 @@ export const initCommand = new Command('init')
   .option('--no-git', 'Skip git repository initialization')
   .option('--yes', 'Skip confirmation prompts')
   .action(async (options) => {
+    // ── (list is now a subcommand: bot init list) ─────────────────────
+    if (false) {
+      console.log();
+      console.log(chalk.bold.cyanBright('  📦  Available Templates'));
+      console.log();
+      console.log(chalk.dim('  Contract Frameworks:'));
+      console.log(`    ${chalk.cyan('foundry')}      Foundry (forge) — fast, Rust-based`);
+      console.log(`    ${chalk.cyan('hardhat')}      Hardhat — JS/TS, extensive plugin ecosystem`);
+      console.log();
+      console.log(chalk.dim('  Contract Starters:'));
+      console.log(`    ${chalk.cyan('counter')}      Simple counter contract (read/write state)`);
+      console.log(`    ${chalk.cyan('guess-the-number')}  Number guessing game contract`);
+      console.log();
+      console.log(chalk.dim('  Frontend Templates (Fullstack dApp only):'));
+      console.log(`    ${chalk.cyan('nextjs-react')}     Next.js 14 + React + RainbowKit + Wagmi`);
+      console.log(`    ${chalk.cyan('vite-react')}       Vite + React + RainbowKit + Wagmi`);
+      console.log(`    ${chalk.cyan('vite-vue')}         Vite + Vue 3`);
+      console.log(`    ${chalk.cyan('vite-vanilla')}     Vite + Vanilla JS`);
+      console.log();
+      console.log(chalk.dim('  Package Managers:'));
+      console.log(`    ${chalk.cyan('bun')}   ${chalk.cyan('npm')}   ${chalk.cyan('yarn')}   ${chalk.cyan('pnpm')}`);
+      console.log();
+      console.log(`  Run ${chalk.cyan('bot init')} to start interactive scaffolding.`);
+      console.log();
+      return;
+    }
+
     printBanner();
 
     let projectName: string = options.name || '';
+
     if (!projectName) {
       while (true) {
         const input = await p.text({
@@ -533,3 +561,32 @@ botdev deploy --script ${deployScriptName ?? 'DeployCounter'} --rpc https://rpc.
 - [wagmi](https://wagmi.sh)
 `;
 }
+
+// ── bot init list ─────────────────────────────────────────────────────────────
+initCommand
+  .command('list')
+  .description('List all available templates and frameworks')
+  .action(() => {
+    console.log();
+    console.log(chalk.bold.cyanBright('  📦  Available Templates'));
+    console.log();
+    console.log(chalk.dim('  Contract Frameworks:'));
+    console.log(`    ${chalk.cyan('foundry')}           Foundry (forge) — fast, Rust-based`);
+    console.log(`    ${chalk.cyan('hardhat')}           Hardhat — JS/TS, extensive plugin ecosystem`);
+    console.log();
+    console.log(chalk.dim('  Contract Starters:'));
+    console.log(`    ${chalk.cyan('counter')}           Simple counter contract (read/write state)`);
+    console.log(`    ${chalk.cyan('guess-the-number')}  Number guessing game contract`);
+    console.log();
+    console.log(chalk.dim('  Frontend Templates (Fullstack dApp only):'));
+    console.log(`    ${chalk.cyan('nextjs-react')}      Next.js 14 + React + RainbowKit + Wagmi`);
+    console.log(`    ${chalk.cyan('vite-react')}        Vite + React + RainbowKit + Wagmi`);
+    console.log(`    ${chalk.cyan('vite-vue')}          Vite + Vue 3`);
+    console.log(`    ${chalk.cyan('vite-vanilla')}      Vite + Vanilla JS`);
+    console.log();
+    console.log(chalk.dim('  Package Managers:'));
+    console.log(`    ${chalk.cyan('bun')}  ${chalk.cyan('npm')}  ${chalk.cyan('yarn')}  ${chalk.cyan('pnpm')}`);
+    console.log();
+    console.log(`  Run ${chalk.cyan('bot init')} to start interactive scaffolding.`);
+    console.log();
+  });
